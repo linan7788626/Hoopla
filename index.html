@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+	<title>Lens Wrangler++</title>
+    
+	<script type="text/javascript" src="lib/underscore.js"></script>
+	<!--<script type="text/javascript" src="lib/lens.js"></script>-->
+	<script type="text/javascript" src="lib/elens.js"></script>
+	<script type="text/javascript" src="lib/canvas.js"></script>
+	<script type="text/javascript" src="lib/conrec.js"></script>
+	<script type="text/javascript" src="lenswrangler.js"></script>
+	<script type="text/javascript">
+		window.onload = function(e){ 
+			// Create a LensWrangler object. The ID is that of the <div>
+    		var wrangler = new LensWrangler({
+				id:'lenswrangler-srcmodel',
+				srcmodel: 'lenswrangler-srcmodel',
+				prediction: 'lenswrangler-prediction',
+				pixscale: 0.0375
+    		});
+
+    		// Attach a function to the load event
+			var offmsg = "Create a lens model to capture the blue arcs";
+			wrangler.bind("mouseout",function(){
+				this.setStatus(offmsg);
+			}).bind("loadimage",function(){
+				this.setStatus(offmsg);
+			});
+    		
+    		// Using Brian C's Marking Surface library!!!
+    		var ms = new MarkingSurface({
+				inputName: 'mass-model',
+				tool: MarkingSurface.EllipseTool
+    		});
+    		var containerEl = document.getElementById("marking-container");
+    		containerEl.appendChild(ms.el);
+    		
+    		var img = new Image();
+    		img.onload = function() {
+				var width = img.width;
+				var height = img.height;
+    		  
+				ms.addShape('image', {
+					'xlink:href': img.src,
+					width: width,
+					height: height
+				});
+				ms.svg.attr({
+					width: 400,
+					height: 400
+				});
+				ms.rescale(0, 0, width, height);
+				var scaleX = 400 / img.width;
+				var scaleY = 400 / img.height;
+    		  
+				function getThetaE(d) {
+					var a = d.rx * wrangler.pixscale;
+					var b = d.ry * wrangler.pixscale;
+					return Math.sqrt(a * b);
+					//return Math.max(a , b);
+				}
+
+				function getAratio(d) {
+					var a = d.rx;
+					var b = d.ry;
+					return a / b;
+				}
+
+				function getAngle(d) {
+					return d.angle;
+				}
+    		  
+				function getCoords(d) {
+					return wrangler.lens.pix2ang({x: scaleX * d.x, y: scaleY * d.y});
+				}
+    		  
+				function updateModel() {
+					var data = JSON.parse(ms.getValue());
+					var components = data.map(function(d) {
+						var coords = getCoords(d);
+						return {
+							plane: "lens",
+							theta_e: getThetaE(d),
+							ell: getAratio(d),
+							ang: getAngle(d),
+							x: coords.x,
+							y: coords.y
+						}
+					});
+					wrangler.updateModel(components);
+				}
+				var debouncedUpdateModel = _.debounce(updateModel, 200);
+				ms.on('marking-surface:change', debouncedUpdateModel);
+			}
+			//img.src = "http://lenszoo.files.wordpress.com/2013/12/asw0009cjs-zoomed.jpg";
+			img.src = "http://raw.githubusercontent.com/linan7788626/linan7788626.github.io/master/images/ering.jpg";
+			//https://raw.githubusercontent.com/linan7788626/linan7788626.github.io/master/images/ering.jpg
+
+			
+		}
+	</script>
+
+	<style type="text/css">
+		body {
+			font-family: serif,Helvetica,Arial,sans-serif;
+			background-color: black;
+			color: #ffffff;
+		}
+  
+		h1, h2, h3, h4 { font-family: Arial,serif; }
+		h1 { margin-bottom: 0.5em; color: #FFFFFF; }
+  
+		h4 { color: #cccccc; }
+		a { color: #cccccc; }
+
+		.inline {
+		    position: relative;
+		    display: inline;
+		    margin-left: 10px;
+		}
+		  
+		.inline-block {
+		    display: inline-block;
+		}
+		  
+		.absolute {
+		    position: absolute;
+		}
+
+		.captions {
+			font-size:20px;
+			font-weight: bold;
+		    display: block;
+		    height: 40px;
+		}
+
+		#masscaption, #srccaption, #predcaption { 
+			width: 400px;
+			color: #606060;
+		}
+	  
+		.bar { 
+			width: 400px; 
+			height: 400px; 
+			float: left; 
+			margin: 5px;
+			border: 2px solid #606060;
+			/* background-image:
+			   url("http://lenszoo.files.wordpress.com/2013/12/asw0009cjs-zoomed.jpg");
+			   */
+			background-image: url("http://raw.githubusercontent.com/linan7788626/linan7788626.github.io/master/images/ering.jpg");
+			background-size: 400px 400px
+		}
+
+		#footer {
+			position:absolute;
+			bottom:0;
+			margin-bottom:40px;
+			width:100%;
+			height:100px;   /* Height of the footer */
+		}
+
+	
+	</style>
+
+<body>
+	<div>
+		<header class="inner">
+			<h1>Lens Wrangler Plus Plus</h1>
+			<h4><a
+					href="https://github.com/drphilmarshall/LensWrangler">Lens
+					Wrangler</a> with Ellipsoid Lenses</h4>
+		</header>
+	</div>
+	    <div class="captions">
+			<div class="inline">
+				<div id="masscaption" class="inline-block">
+					<p>Mass Model</p>
+				</div>
+			</div>
+      
+			<div class="inline">
+				<div id="srccaption" class="inline-block">
+					<p style="margin-left:0px;">Source Plane</p>
+				</div>
+			</div>
+    	  
+			<div class="inline">
+				<div id="predcaption" class="inline-block">
+					<p style="margin-left:0px;">Lens Plane</p>
+				</div>
+			</div>
+		</div>
+	<div>
+		<div id="marking-container" class="bar"></div>
+		<div id="lenswrangler-srcmodel" class="bar"></div>
+		<div id="lenswrangler-prediction" class="bar"></div>
+	</div>
+
+	<div id="footer" class="outer">
+		<footer class="inner">
+			<p><a
+				href="https://github.com/linan7788626/LensWranglerPP">LensWrangler
+	Plus Plus</a> is based on <a
+	href="https://github.com/drphilmarshall/LensWrangler">LensWrangler</a>,
+modified by <a href="https://github.com/linan7788626">Nan Li</a>. </p>
+			<p><a
+				href="https://github.com/drphilmarshall/LensWrangler">LensWrangler</a>
+	ismaintained by <a href="https://github.com/drphilmarshall">Phil
+		Marshall</a>, <a href="https://github.com/kapadia">Amit Kapadia</a> and
+	<a href="https://github.com/slowe">Stuart Lowe</a>.</p>
+			<p>This page is published with <a
+				href="http://pages.github.com">GitHub Pages</a>.</p>
+		</footer>
+    </div>
+    
+    <script type="text/javascript" src="lib/marking/marking-surface.js"></script>
+    <script type="text/javascript" src="lib/marking/tools/ellipse.js"></script>
+</body>
