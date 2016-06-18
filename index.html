@@ -110,8 +110,8 @@
 		h1, h2, h3, h4 { font-family: Arial,serif; }
 		h1 { margin-bottom: 0.5em; color: #FFFFFF; }
   
-		h4 { color: #cccccc; }
-		a { color: #cccccc; }
+		h4 { color: #666666; }
+		a { color: #666666; }
 
 		.inline {
 		    position: relative;
@@ -123,10 +123,6 @@
 		    display: inline-block;
 		}
 		  
-		.absolute {
-		    position: absolute;
-		}
-
 		.captions {
 			font-size:20px;
 			font-weight: bold;
@@ -136,7 +132,7 @@
 
 		#masscaption, #srccaption, #predcaption { 
 			width: 400px;
-			color: #606060;
+			color: #ffffff;
 		}
 	  
 		.bar { 
@@ -144,7 +140,7 @@
 			height: 400px; 
 			float: left; 
 			margin: 5px;
-			border: 2px solid #606060;
+			border: 1px solid #666666;
 			/* background-image:
 			   url("http://lenszoo.files.wordpress.com/2013/12/asw0009cjs-zoomed.jpg");
 			   */
@@ -152,8 +148,13 @@
 			background-size: 400px 400px
 		}
 
+		.greywords {
+			color: #666666;
+		}
+
 		#footer {
 			position:absolute;
+			color: #666666;
 			bottom:0;
 			margin-bottom:40px;
 			width:100%;
@@ -169,7 +170,7 @@
 			<h1>Lens Wrangler Plus Plus</h1>
 			<h4><a
 					href="https://github.com/drphilmarshall/LensWrangler">Lens
-					Wrangler</a> with Ellipsoid Lenses</h4>
+					Wrangler</a> with Elliptical Lenses</h4>
 		</header>
 	</div>
 	    <div class="captions">
@@ -196,23 +197,36 @@
 		<div id="lenswrangler-srcmodel" class="bar"></div>
 		<div id="lenswrangler-prediction" class="bar"></div>
 	</div>
+	<div>
+		Drag mouse in the "Mass Model" block to draw ellipses, then move the cursor in the "Source Plane" block. Can you find anything interesting in the "Lens Plane" block? And, can you reconstruct the Einstein Ring in these figures by modeling you lenses with mouse? Have Fun!
 
-	<div id="footer" class="outer">
-		<footer class="inner">
-			<p><a
-				href="https://github.com/linan7788626/LensWranglerPP">LensWrangler
-	Plus Plus</a> is based on <a
-	href="https://github.com/drphilmarshall/LensWrangler">LensWrangler</a>,
-modified by <a href="https://github.com/linan7788626">Nan Li</a>. </p>
-			<p><a
-				href="https://github.com/drphilmarshall/LensWrangler">LensWrangler</a>
-	ismaintained by <a href="https://github.com/drphilmarshall">Phil
-		Marshall</a>, <a href="https://github.com/kapadia">Amit Kapadia</a> and
-	<a href="https://github.com/slowe">Stuart Lowe</a>.</p>
-			<p>This page is published with <a
-				href="http://pages.github.com">GitHub Pages</a>.</p>
-		</footer>
-    </div>
+		<p class="greywords"><a
+			href="https://github.com/linan7788626/LensWranglerPlusPlus">LensWrangler
+   Plus Plus</a> is based on <a
+   href="https://github.com/drphilmarshall/LensWrangler">LensWrangler</a>,
+   modified by <a href="https://github.com/linan7788626">Nan Li</a>. <br/> 
+   <a href="https://github.com/drphilmarshall/LensWrangler">LensWrangler</a> is maintained by <a href="https://github.com/drphilmarshall">Phil Marshall</a>, <a href="https://github.com/kapadia">Amit Kapadia</a> and
+	<a href="https://github.com/slowe">Stuart Lowe</a>. <br/>
+	This page is published with <a
+				href="http://pages.github.com">GitHub Pages</a>. <br/></p>
+	</div>
+
+	<!--<div id="footer" class="outer">-->
+		<!--<footer class="inner">-->
+			<!--<p><a-->
+				<!--href="https://github.com/linan7788626/LensWranglerPP">LensWrangler-->
+	<!--Plus Plus</a> is based on <a-->
+	<!--href="https://github.com/drphilmarshall/LensWrangler">LensWrangler</a>,-->
+<!--modified by <a href="https://github.com/linan7788626">Nan Li</a>. </p>-->
+			<!--<p><a-->
+				<!--href="https://github.com/drphilmarshall/LensWrangler">LensWrangler</a>-->
+	<!--is maintained by <a href="https://github.com/drphilmarshall">Phil-->
+		<!--Marshall</a>, <a href="https://github.com/kapadia">Amit Kapadia</a> and-->
+	<!--<a href="https://github.com/slowe">Stuart Lowe</a>.</p>-->
+			<!--<p>This page is published with <a-->
+				<!--href="http://pages.github.com">GitHub Pages</a>.</p>-->
+		<!--</footer>-->
+    <!--</div>-->
     
     <script type="text/javascript" src="lib/marking/marking-surface.js"></script>
     <script type="text/javascript" src="lib/marking/tools/ellipse.js"></script>
