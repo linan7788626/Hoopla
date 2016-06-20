@@ -1,13 +1,6 @@
-LensWrangler
+LensWrangler Plus Plus
 ============
 
-Model-based gravitational lens annotation. 
+LensWrangler Plus Plus is based on [LensWrangler](http://drphilmarshall.github.com/LensWrangler/) , modified by Nan Li. It involves ellipitical lenses and some new images.
 
-[Example.](http://drphilmarshall.github.com/LensWrangler/)
-
-Credits
--------
-
-* Stuart Lowe ([LCOGT](http://lcogt.net/))
-* Phil Marshall ([University of Oxford](http://www2.physics.ox.ac.uk/research/astrophysics))
-* Aprajita Verma ([University of Oxford](http://www2.physics.ox.ac.uk/research/astrophysics))
+[Example.](http://linan7788626.github.io/pages/LensWranglerPlusPlus/index.html)
