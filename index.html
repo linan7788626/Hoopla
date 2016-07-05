@@ -5,7 +5,8 @@
     
 	<script type="text/javascript" src="lib/underscore.js"></script>
 	<!--<script type="text/javascript" src="lib/lens.js"></script>-->
-	<script type="text/javascript" src="lib/elens.js"></script>
+	<!--<script type="text/javascript" src="lib/elens.js"></script>-->
+	<script type="text/javascript" src="lib/eelens.js"></script>
 	<script type="text/javascript" src="lib/canvas.js"></script>
 	<script type="text/javascript" src="lib/conrec.js"></script>
 	<script type="text/javascript" src="lenswrangler.js"></script>
@@ -86,6 +87,14 @@
 							x: coords.x,
 							y: coords.y
 						}
+						//return {
+						//	plane: "source",
+						//	size: getThetaE(d),
+						//	ell: getAratio(d),
+						//	ang: getAngle(d),
+						//	x: coords.x,
+						//	y: coords.y
+						//}
 					});
 					wrangler.updateModel(components);
 				}
@@ -94,8 +103,6 @@
 			}
 			//img.src = "http://lenszoo.files.wordpress.com/2013/12/asw0009cjs-zoomed.jpg";
 			img.src = "http://raw.githubusercontent.com/linan7788626/linan7788626.github.io/master/images/ering.jpg";
-
-			
 		}
 	</script>
 

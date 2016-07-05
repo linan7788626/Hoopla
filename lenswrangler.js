@@ -32,7 +32,7 @@
 		this.freezeSrcModel = false;
 		var _this = this;
 		this.srcmodelPaper.canvas.onclick = function() {
-		_this.freezeSrcModel = _this.freezeSrcModel ? false: true;
+			_this.freezeSrcModel = _this.freezeSrcModel ? false: true;
 		};
 
 		this.predictionPaper = new Canvas({'id': this.prediction});
@@ -57,13 +57,22 @@
 			src:" http://lenszoo.files.wordpress.com/2013/12/asw0009cjs-zoomed.jpg",
 			PSFwidth: 1.2,
 			source: {
-    		    plane: "source",
-    		    size:  0.7,
-    		    x: 100.0,
-    		    y:  100.0
-    		},
+				plane: "source",
+				size:  0.7,
+				x: 100.0,
+				y:  100.0,
+				ell: 0.7,
+				ang: 32
+			},
 			components: [
-				{plane: "source", size:  0.7, x: 100.0, y:  100.0}
+				{
+					plane: "source",
+					size:  0.7,
+					x: 100.0,
+					y: 100.0,
+					ell: 0.7,
+					ang: 32
+				}
 			]
 		});
 		this.init();
