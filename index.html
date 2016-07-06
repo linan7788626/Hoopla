@@ -192,7 +192,7 @@
 		.inline {
 		    position: relative;
 		    display: inline;
-		    margin-left: 10px;
+		    margin-left: 5px;
 		}
 		  
 		.inline-block {
@@ -206,9 +206,24 @@
 		    height: 40px;
 		}
 
-		#masscaption,#srcincaption,  #srccaption, #predcaption { 
-			width: 400px;
+		#masscaption,#srcincaption {
+			padding-top:100;
+			border: 1px solid #666666;
+			background-color: #666666;
+			width: 380px;
 			color: #ffffff;
+			padding-left: 20px;
+			margin-bottom: 50;
+		}
+		
+		#srccaption, #predcaption { 
+			padding-top:100;
+			border: 1px solid #666666;
+			background-color: #666666;
+			width: 380px;
+			color: #ffffff;
+			padding-left: 20px;
+			margin-bottom: 50;
 		}
 	  
 		.bar { 
@@ -216,12 +231,26 @@
 			height: 400px; 
 			float: left; 
 			margin: 5px;
+			margin-bottom: 5px;
 			border: 1px solid #666666;
 			/* background-image:
 			   url("http://lenszoo.files.wordpress.com/2013/12/asw0009cjs-zoomed.jpg");
 			   */
 			background-image: url("http://raw.githubusercontent.com/linan7788626/linan7788626.github.io/master/images/ering.jpg");
 			background-size: 400px 400px
+		}
+		.barTitle { 
+			font-family: Arial,serif;
+			padding-bottom:20px;
+			font-size:22px;
+			font-weight: bold;
+			width: 400px; 
+			height: 20px; 
+			float: left; 
+			margin: 5px;
+			margin-bottom: -5px;
+			border: 1px solid #666666;
+			background-color:#666666;
 		}
 
 		.greywords {
@@ -294,37 +323,54 @@
 					Wrangler</a> with Elliptical Lenses and Sources</h4>
 		</header>
 	</div>
+	<!--<div class="container">-->
+		<!--<div class="captions">-->
+			<!--<div class="inline">-->
+				<!--<div id="masscaption" class="inline-block">-->
+					<!--<p>Mass Model</p>-->
+				<!--</div>-->
+			<!--</div>-->
+			<!--<div class="inline">-->
+				<!--<div id="srccaption" class="inline-block">-->
+					<!--<p>Source Model</p>-->
+				<!--</div>-->
+			<!--</div>-->
+		<!--</div>-->
+	<!--</div>-->
 	<div class="container">
-	    <div class="captions">
-			<div class="inline">
-				<div id="masscaption" class="inline-block">
-					<p>Mass Model</p>
-				</div>
-			</div>
-			<div class="inline">
-				<div id="srccaption" class="inline-block">
-					<p>Source Model</p>
-				</div>
-			</div>
+		<div id="masscaption" class="barTitle">
+			<p style="margin-top: 10px;margin-left: -8px;">Mass Model</p>
+			
+		</div>
+		<div id="srccaption" class="barTitle">
+			<p style="margin-top: 10px;margin-left: -8px;">Source Model</p>
 		</div>
 	</div>
 	<div class="container">
 		<div id="marking-container" class="bar"></div>
 		<div id="marking-container-src" class="bar" style="color: #666666;"></div>
 	</div>
+	<!--<div class="container">-->
+		<!--<div class="captions">-->
+			<!--<div class="inline">-->
+				<!--<div id="srcincaption" class="inline-block">-->
+					<!--<p>Source Plane</p>-->
+				<!--</div>-->
+			<!--</div>-->
+          
+			<!--<div class="inline">-->
+				<!--<div id="predcaption" class="inline-block">-->
+					<!--<p>Image Plane</p>-->
+				<!--</div>-->
+			<!--</div>-->
+		<!--</div>-->
+	<!--</div>-->
 	<div class="container">
-	    <div class="captions">
-			<div class="inline">
-				<div id="srcincaption" class="inline-block">
-					<p style="margin:10px;margin-left:3px;">Source Plane</p>
-				</div>
-			</div>
-    	  
-			<div class="inline">
-				<div id="predcaption" class="inline-block">
-					<p style="margin:10px;margin-left:3px;">Image Plane</p>
-				</div>
-			</div>
+		<div id="masscaption" class="barTitle">
+			<p style="margin-top: 10px;margin-left: -8px;">Source Plane</p>
+		</div>
+		<div id="srccaption" class="barTitle">
+			<p style="margin-top: 10px;margin-left: -8px;">Image Plane</p>
 		</div>
 	</div>
 
@@ -335,8 +381,8 @@
 
 	<div class="container">
 		<div class="article">
-		Drag your mouse in the "Mass Model" block and "Source Model" block to draw ellipses, then move the
-		cursor in the "Source Plane" block. <br/> 
+		Drag your mouse in the blocks of "Mass Model" and "Source Model" to draw ellipses, <br/> 
+		then move the cursor in the "Source Plane" block. <br/> 
 		Can you discover anything interesting in
 		the "Image Plane" block?  <br/>
 		Can you reconstruct the Einstein Ring using your mouse? <br/>
