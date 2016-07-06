@@ -80,9 +80,43 @@
 
 	LensWrangler.prototype.updateModel = function(components) {
 		console.log('updateModel');
-    	var source = this.models[0].source;
-    	components.splice(0, 0, source);
-    	this.models[0].components = components;
+		if (components.length === 0) {
+			if (this.models[0].components.length === 0) {
+				var source = this.models[0].source;
+				components.splice(0, 0, source);
+				this.models[0].components = components;
+
+			} else {
+				var source = this.models[0].components[0];
+				components.splice(0, 0, source);
+				this.models[0].components = components;
+			}
+
+		} else {
+			if (components[0].plane === "source") {
+				if (this.models[0].components[0].plane === "source") {
+					this.models[0].components[0] = components[0];
+				} else {
+					this.models[0].components.splice(0, 0, components[0]);
+				}
+			} else {
+				if (this.models[0].components[0].plane === "source") {
+					var source = this.models[0].components[0];
+					components.splice(0, 0, source);
+					this.models[0].components = components;
+				} else {
+					var source = this.models[0].source;
+					components.splice(0, 0, source);
+					this.models[0].components = components;
+
+				}
+			}
+		}
+
+		console.log(this.models[0].components.lenght);
+		for(var i = 0 ; i < this.models[0].components.length ; i++) {
+			console.log(this.models[0].components[i]);
+		}
     	this.init();
 	}
 
