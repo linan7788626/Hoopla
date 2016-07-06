@@ -112,11 +112,13 @@
 				}
 			}
 		}
-
-		console.log(this.models[0].components.lenght);
-		for(var i = 0 ; i < this.models[0].components.length ; i++) {
-			console.log(this.models[0].components[i]);
-		}
+		//var str = JSON.stringify(this.models[0]);
+		//console.log(str);
+		//var obj = JSON.parse(string);
+		//console.log(this.models[0].components.lenght);
+		//for(var i = 0 ; i < this.models[0].components.length ; i++) {
+			//console.log(this.models[0].components[i]);
+		//}
     	this.init();
 	}
 
@@ -341,10 +343,7 @@
 					// Loop over all the points in this contour, mapping them back to the source plane:
 					for(k = 0; k < c[l].length ; k++) {
 						i = this.lens.altxy2i(Math.round(c[l][k].x),Math.round(c[l][k].y));
-						this.caustics[l][k] = {x: (Math.round(c[l][k].x - this.lens.alpha[i].x)),
-								   y: (Math.round(c[l][k].y - this.lens.alpha[i].y))};
-						//this.caustics[l][k] = {x: (Math.round(c[l][k].x) - Math.round(this.lens.alpha[i].x)),
-								   //y: (Math.round(c[l][k].y) - Math.round(this.lens.alpha[i].y))};
+						this.caustics[l][k] = {x: (Math.round(c[l][k].x - this.lens.alpha[i].x)), y: (Math.round(c[l][k].y - this.lens.alpha[i].y))};
 					}
 				}
 			}
@@ -373,6 +372,8 @@
 					_this.e = {x:e.x, y:e.y};
 					if (!_this.freezeSrcModel) {
 						e.data.wrangler.update(e);
+						//var str = JSON.stringify(this.models[0]);
+						//console.log(str);
 					}
 				});
 			}
@@ -459,7 +460,6 @@
 			}
 			downsampledList.push(downsampled);
     	}
-
 		return downsampledList;
 	}
 	// Loads the image file. You can provide a callback or have

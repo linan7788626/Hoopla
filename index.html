@@ -129,7 +129,7 @@
 				var scaleX = 400 / img_src.width;
 				var scaleY = 400 / img_src.height;
     		  
-				function getThetaE(d) {
+				function getSize(d) {
 					var a = d.rx * wrangler.pixscale;
 					var b = d.ry * wrangler.pixscale;
 					return Math.sqrt(a * b);
@@ -156,7 +156,7 @@
 						var coords = getCoords(d);
 						return {
 							plane: "source",
-							size: getThetaE(d),
+							size: getSize(d),
 							ell: getAratio(d),
 							ang: getAngle(d),
 							x: coords.x,
@@ -316,27 +316,11 @@
 <body>
 	<div>
 		<header class="inner">
-			<a href="http://linan7788626.github.io"><button id="homebutton"
-					class="button" style="vertical-align:middle"><span>Go Back</span></button></a>
 			<h1>Lens Wrangler Plus Plus</h1>
 			<h4><a href="https://github.com/drphilmarshall/LensWrangler">Lens
 					Wrangler</a> with Elliptical Lenses and Sources</h4>
 		</header>
 	</div>
-	<!--<div class="container">-->
-		<!--<div class="captions">-->
-			<!--<div class="inline">-->
-				<!--<div id="masscaption" class="inline-block">-->
-					<!--<p>Mass Model</p>-->
-				<!--</div>-->
-			<!--</div>-->
-			<!--<div class="inline">-->
-				<!--<div id="srccaption" class="inline-block">-->
-					<!--<p>Source Model</p>-->
-				<!--</div>-->
-			<!--</div>-->
-		<!--</div>-->
-	<!--</div>-->
 	<div class="container">
 		<div id="masscaption" class="barTitle">
 			<p style="margin-top: 10px;margin-left: -8px;">Mass Model</p>
@@ -350,21 +334,6 @@
 		<div id="marking-container" class="bar"></div>
 		<div id="marking-container-src" class="bar" style="color: #666666;"></div>
 	</div>
-	<!--<div class="container">-->
-		<!--<div class="captions">-->
-			<!--<div class="inline">-->
-				<!--<div id="srcincaption" class="inline-block">-->
-					<!--<p>Source Plane</p>-->
-				<!--</div>-->
-			<!--</div>-->
-          
-			<!--<div class="inline">-->
-				<!--<div id="predcaption" class="inline-block">-->
-					<!--<p>Image Plane</p>-->
-				<!--</div>-->
-			<!--</div>-->
-		<!--</div>-->
-	<!--</div>-->
 	<div class="container">
 		<div id="masscaption" class="barTitle">
 			<p style="margin-top: 10px;margin-left: -8px;">Source Plane</p>
@@ -378,16 +347,25 @@
 		<div id="lenswrangler-srcmodel" class="bar"></div>
 		<div id="lenswrangler-prediction" class="bar"></div>
 	</div>
+	<div class="container">
+	<a href=""><button class="button"
+			style="vertical-align:middle;width:262px;background-color:#666666"><span>Save Mass Models</span></button></a>
+	<a href=""><button class="button"
+			style="vertical-align:middle;width:262px;background-color:#666666"><span>Load Mass Models</span></button></a>
+	<a href=""><button class="button"
+			style="vertical-align:middle;width:262px;background-color:#666666"><span>Upload Lensed Images</span></button></a>
+	</div>
 
 	<div class="container">
 		<div class="article">
-		Drag your mouse in the blocks of "Mass Model" and "Source Model" to draw ellipses, <br/> 
-		then move the cursor in the "Source Plane" block. <br/> 
-		Can you discover anything interesting in
-		the "Image Plane" block?  <br/>
-		Can you reconstruct the Einstein Ring using your mouse? <br/>
-		Please use left click to activate freeze-model.<br/>
-		Have Fun!<br/>
+			<br/>
+			Drag your mouse in the blocks of "Mass Model" and "Source Model" to draw ellipses, <br/> 
+			then move the cursor in the "Source Plane" block. <br/> 
+			Can you discover anything interesting in
+			the "Image Plane" block?  <br/>
+			Can you reconstruct the Einstein Ring using your mouse? <br/>
+			Please use left click to activate freeze-model.<br/>
+			Have Fun!<br/>
 		</div>
 	</div>
 
@@ -403,8 +381,7 @@
 	This page is published with <a
 				href="http://pages.github.com">GitHub Pages</a>. <br/></p>
 	</footer>
-		<br/>
-		<a href="http://linan7788626.github.io">Go Back to My Homepage</a><br/> 
+	<a href="http://linan7788626.github.io"><button class="button" style="vertical-align:middle"><span>Go Back</span></button></a>
 	</div>
     
     <script type="text/javascript" src="lib/marking/marking-surface.js"></script>
