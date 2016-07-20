@@ -169,6 +169,10 @@
 				ms_src.on('marking-surface:change', debouncedUpdateModel);
 			}
 			img_src.src = "http://raw.githubusercontent.com/linan7788626/linan7788626.github.io/master/images/ering.jpg";
+
+			document.getElementById("showModels").onclick = function fun() {
+				wrangler.showModels();
+			}
 		}
 	</script>
 
@@ -347,14 +351,14 @@
 		<div id="lenswrangler-srcmodel" class="bar"></div>
 		<div id="lenswrangler-prediction" class="bar"></div>
 	</div>
-	<!--<div class="container">-->
-	<!--<a href=""><button class="button"-->
-			<!--style="vertical-align:middle;width:262px;background-color:#666666"><span>Save Mass Models</span></button></a>-->
-	<!--<a href=""><button class="button"-->
-			<!--style="vertical-align:middle;width:262px;background-color:#666666"><span>Load Mass Models</span></button></a>-->
-	<!--<a href=""><button class="button"-->
-			<!--style="vertical-align:middle;width:262px;background-color:#666666"><span>Upload Lensed Images</span></button></a>-->
-	<!--</div>-->
+	<div class="container">
+	<button class="button" id="showModels"
+			style="vertical-align:middle;width:262px;background-color:#666666"><span>Show Mass Models</span></button>
+	<button class="button"
+			style="vertical-align:middle;width:262px;background-color:#666666"><span>Load Mass Models</span></button>
+	<button class="button"
+			style="vertical-align:middle;width:262px;background-color:#666666"><span>Upload Lensed Images</span></button>
+	</div>
 	<div class="container">
 		<div class="article">
 			<p>	<br/>

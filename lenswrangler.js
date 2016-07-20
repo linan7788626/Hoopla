@@ -112,13 +112,6 @@
 				}
 			}
 		}
-		//var str = JSON.stringify(this.models[0]);
-		//console.log(str);
-		//var obj = JSON.parse(string);
-		//console.log(this.models[0].components.lenght);
-		//for(var i = 0 ; i < this.models[0].components.length ; i++) {
-			//console.log(this.models[0].components[i]);
-		//}
     	this.init();
 	}
 
@@ -303,6 +296,11 @@
 		return this.models[0];
 	}
 
+	//var data = "{name: 'Bob', occupation: 'Plumber'}";
+	//var url = 'data:text/json;charset=utf8,' + encodeURIComponent(data);
+	//window.open(url, '_blank');
+	//window.focus();
+
 	LensWrangler.prototype.init = function(inp,fnCallback){
 		this.model = this.getModel(inp);
 
@@ -381,6 +379,21 @@
 		if(typeof fnCallback=="function") fnCallback(this);
 		this.trigger("init");
 		return this;
+	}
+
+	LensWrangler.prototype.showModels = function(){
+		var str = JSON.stringify(this.models[0].components, null, 4);
+		//alert(str);
+		var link = document.createElement('a');
+		link.download = 'lensModels.json';
+		var blob = new Blob([str], {type: 'text/plain'});
+		link.href = window.URL.createObjectURL(blob);
+		link.click();
+		//var obj = JSON.parse(string);
+		//console.log(this.models[0].components.lenght);
+		//for(var i = 0 ; i < this.models[0].components.length ; i++) {
+			//console.log(this.models[0].components[i]);
+		//}
 	}
 
 	LensWrangler.prototype.update = function(e){
@@ -462,6 +475,7 @@
     	}
 		return downsampledList;
 	}
+
 	// Loads the image file. You can provide a callback or have
 	LensWrangler.prototype.loadImage = function(source, fnCallback){
 
