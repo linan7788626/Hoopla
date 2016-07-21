@@ -173,6 +173,18 @@
 			document.getElementById("showModels").onclick = function fun() {
 				wrangler.showModels();
 			}
+
+			document.getElementById('imageUpload').onchange = function(e) {
+				var imageFile = this.files[0];
+				var url = window.URL.createObjectURL(imageFile);
+				img.src = url;
+				img_src.src = url;
+				document.getElementById("lenswrangler-srcmodel").style.backgroundImage
+					= "url(" + url + ")";
+				document.getElementById("lenswrangler-prediction").style.backgroundImage
+					= "url(" + url + ")";
+				console.log(url);
+			}
 		}
 	</script>
 
@@ -315,6 +327,35 @@
 			left: 1035px;
 			top: 30px;
 		}
+
+		.Uploadbtn {
+		  position: relative;
+		  overflow: hidden;
+
+		  display: inline-block;
+		  border-radius: 2px;
+		  background-color: #0f79ac;
+		  border: none;
+		  color: #FFFFFF;
+		  text-align: center;
+		  font-size: 18px;
+		  padding: 10px;
+		  width: 200px;
+		  transition: all 0.5s;
+		  cursor: pointer;
+		  margin: 5px;
+		}
+		
+		.Uploadbtn .input-upload {
+		  position: absolute;
+		  top: 0;
+		  right: 0;
+		  margin: 0;
+		  padding: 0;
+		  opacity: 0;
+		  height:100%;
+		  width:100%;
+		}
 	</style>
 
 <body>
@@ -353,22 +394,29 @@
 	</div>
 	<div class="container">
 	<button class="button" id="showModels"
-			style="vertical-align:middle;width:262px;background-color:#666666"><span>Show Mass Models</span></button>
+			style="vertical-align:middle;width:262px;background-color:#666666"><span>Save Lens Models</span></button>
 	<button class="button"
 			style="vertical-align:middle;width:262px;background-color:#666666"><span>Load Mass Models</span></button>
-	<button class="button"
-			style="vertical-align:middle;width:262px;background-color:#666666"><span>Upload Lensed Images</span></button>
+	<!--<button class="button" id="imageUpload"-->
+			<!--style="vertical-align:middle;width:262px;background-color:#666666"><span>Upload Lensed Images</span></button>-->
+	<button class="Uploadbtn" style="vertical-align:middle;width:262px;background-color:#666666">
+		<input class="input-upload" type="file" id="imageUpload"/>
+		<span>Upload Lensed Images</span>
+	</button>
 	</div>
 	<div class="container">
 		<div class="article">
 			<p>	<br/>
 			<br/>
-			Drag your mouse in the blocks of "Mass Model" and "Source Model" to draw ellipses, <br/> 
-			then move the cursor in the "Source Plane" block. <br/> 
-			Can you discover anything interesting in
-			the "Image Plane" block?  <br/>
-			Can you reconstruct the Einstein Ring using your mouse? <br/>
-			Please use left click to activate freeze-model.<br/>
+			Drag your mouse in the blocks "Mass Model" and "Source Model" to <br/>
+			draw ellipses, then move the cursor in the "Source Plane" block. Can <br/>
+			you discover anything interesting in the "Image Plane" block? Can <br/>
+			you reconstruct the Einstein Ring using your mouse? If you <br/>
+			reconstruct the lensed images successfully, you can use left click <br/>
+			on the block "Source Plane" to activate freeze-model, then click the <br/>
+			button "Save Lens Models" to save your model. If you would like <br/>
+			to email the model to <a href="mailto:linan7788626@gmail.com">linan7788626@gmail.com</a>, <br/>
+			I really appreciate it. <br/>
 			Have Fun!<br/>
 			</p>
 		</div>

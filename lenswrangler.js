@@ -296,11 +296,6 @@
 		return this.models[0];
 	}
 
-	//var data = "{name: 'Bob', occupation: 'Plumber'}";
-	//var url = 'data:text/json;charset=utf8,' + encodeURIComponent(data);
-	//window.open(url, '_blank');
-	//window.focus();
-
 	LensWrangler.prototype.init = function(inp,fnCallback){
 		this.model = this.getModel(inp);
 
@@ -370,8 +365,6 @@
 					_this.e = {x:e.x, y:e.y};
 					if (!_this.freezeSrcModel) {
 						e.data.wrangler.update(e);
-						//var str = JSON.stringify(this.models[0]);
-						//console.log(str);
 					}
 				});
 			}
@@ -389,11 +382,6 @@
 		var blob = new Blob([str], {type: 'text/plain'});
 		link.href = window.URL.createObjectURL(blob);
 		link.click();
-		//var obj = JSON.parse(string);
-		//console.log(this.models[0].components.lenght);
-		//for(var i = 0 ; i < this.models[0].components.length ; i++) {
-			//console.log(this.models[0].components[i]);
-		//}
 	}
 
 	LensWrangler.prototype.update = function(e){
@@ -408,6 +396,9 @@
 		// Update the source x,y positions
 		src.x = coords.x;
 		src.y = coords.y;
+		this.model.components[0].x = coords.x;
+		this.model.components[0].y = coords.y;
+		//console.log(this.model.components[0]);
 		// Add the source back
 		this.lens.add(src);
 		// Paste original image
