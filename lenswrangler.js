@@ -78,6 +78,12 @@
 		this.init();
 	}
 
+	LensWrangler.prototype.loadModel = function(components) {
+		console.log('loadModel');
+		this.models[0].components = components;
+    	this.init();
+	}
+
 	LensWrangler.prototype.updateModel = function(components) {
 		console.log('updateModel');
 		if (components.length === 0) {
@@ -87,9 +93,9 @@
 				this.models[0].components = components;
 
 			} else {
-				var source = this.models[0].components[0];
-				components.splice(0, 0, source);
-				this.models[0].components = components;
+				//var source = this.models[0].components[0];
+				//components.splice(0, 0, source);
+				//this.models[0].components = components;
 			}
 
 		} else {
