@@ -10,5 +10,5 @@ LensWranglerPlusPlus is based on [LensWrangler](http://drphilmarshall.github.com
 ###To-do List
 
 - [x] Export lens models as ASCII files
-- [ ] Imort lens models from ASCII files
+- [x] Imort lens models from ASCII files
 - [x] Upload lensed images interactively
