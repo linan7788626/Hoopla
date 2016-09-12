@@ -368,14 +368,24 @@
 			height:100%;
 			width:100%;
 		}
+
 		#textbox1 {
 			border: 0px #666666;
+			border-radius: 2px;
 			font-size: 18px;
-			margin-top: 5px;
-			margin-left: 5px;
+			margin: 5px;
+			margin-bottom: 0px;
 			padding: 10px;
-			width: 760%88px;
-			height: 100%;
+			width: 620px;
+			height: 20px;
+		}
+
+		.wrapper {
+			margin: 5px;
+			background-color: #666666;
+			border:0px solid #666666;
+			border-radius: 2px;
+			display:inline-block;
 		}
 
 	</style>
@@ -427,10 +437,13 @@
 		<span>Upload Lensed Images</span>
 	</button>
 
-	<input id="textbox1" type="text" placeholder="Input the URL of an Image"/>
-	<button class="button" id="buttonExecute"
-						style="margin-top:1px;margin-left:-162px;border-radius:0px;vertical-align:middle;width:162px;background-color:#666666"
+	<div class="wrapper">
+		<input id="textbox1" type="text" placeholder="Input the URL of an Image"/>
+		<button class="button" id="buttonExecute" style="width:150px;background-color:#666666"
 		><span>Upload URL</span></button>
+			
+
+	</div>
 	</div>
 
 	<div class="container">
