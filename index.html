@@ -15,7 +15,8 @@
 				id:'lenswrangler-srcmodel',
 				srcmodel: 'lenswrangler-srcmodel',
 				prediction: 'lenswrangler-prediction',
-				pixscale: 0.0375
+				//pixscale: 0.0375
+				pixscale: 0.0225
     		});
 
     		//// Attach a function to the load event
@@ -160,13 +161,23 @@
 			}
 			img_src.src = "http://raw.githubusercontent.com/linan7788626/linan7788626.github.io/master/images/ering.jpg";
 
-			document.getElementById("showModels").onclick = function fun() {
-				wrangler.showModels();
-			}
-
 			document.getElementById('imageUpload').onchange = function(e) {
 				var imageFile = this.files[0];
 				var url = window.URL.createObjectURL(imageFile);
+				img.src = url;
+				img_src.src = url;
+				document.getElementById("lenswrangler-srcmodel").style.backgroundImage
+					= "url(" + url + ")";
+				document.getElementById("lenswrangler-prediction").style.backgroundImage
+					= "url(" + url + ")";
+			}
+
+			document.getElementById("showModels").onclick = function fun() {
+				wrangler.showModels(img_src.src.split('/')[img_src.src.split('/').length-1].split('.')[0]+'.JSON');
+			}
+
+			document.getElementById('buttonExecute').onclick = function passURL() {
+				url = document.getElementById('textbox1').value
 				img.src = url;
 				img_src.src = url;
 				document.getElementById("lenswrangler-srcmodel").style.backgroundImage
@@ -284,43 +295,43 @@
 		}
 
 		.button {
-		  display: inline-block;
-		  border-radius: 2px;
-		  background-color: #0f79ac;
-		  border: none;
-		  color: #FFFFFF;
-		  text-align: center;
-		  font-size: 18px;
-		  padding: 10px;
-		  width: 200px;
-		  transition: all 0.5s;
-		  cursor: pointer;
-		  margin: 5px;
+			display: inline-block;
+			border-radius: 2px;
+			background-color: #0f79ac;
+			border: none;
+			color: #FFFFFF;
+			text-align: center;
+			font-size: 18px;
+			padding: 10px;
+			width: 200px;
+			transition: all 0.5s;
+			cursor: pointer;
+			margin: 5px;
 		}
 		
 		.button span {
-		  cursor: pointer;
-		  display: inline-block;
-		  position: relative;
-		  transition: 0.5s;
+			cursor: pointer;
+			display: inline-block;
+			position: relative;
+			transition: 0.5s;
 		}
 		
 		.button span:after {
-		  content: '»';
-		  position: absolute;
-		  opacity: 0;
-		  top: 0;
-		  right: -20px;
-		  transition: 0.5s;
+			content: '»';
+			position: absolute;
+			opacity: 0;
+			top: 0;
+			right: -20px;
+			transition: 0.5s;
 		}
 		
 		.button:hover span {
-		  padding-right: 25px;
+			padding-right: 25px;
 		}
 		
 		.button:hover span:after {
-		  opacity: 1;
-		  right: 0;
+			opacity: 1;
+			right: 0;
 		}
 
 		#homebutton {
@@ -330,33 +341,43 @@
 		}
 
 		.Uploadbtn {
-		  position: relative;
-		  overflow: hidden;
+			position: relative;
+			overflow: hidden;
 
-		  display: inline-block;
-		  border-radius: 2px;
-		  background-color: #0f79ac;
-		  border: none;
-		  color: #FFFFFF;
-		  text-align: center;
-		  font-size: 18px;
-		  padding: 10px;
-		  width: 200px;
-		  transition: all 0.5s;
-		  cursor: pointer;
-		  margin: 5px;
+			display: inline-block;
+			border-radius: 2px;
+			background-color: #0f79ac;
+			border: none;
+			color: #FFFFFF;
+			text-align: center;
+			font-size: 18px;
+			padding: 10px;
+			width: 200px;
+			transition: all 0.5s;
+			cursor: pointer;
+			margin: 5px;
 		}
 		
 		.Uploadbtn .input-upload {
-		  position: absolute;
-		  top: 0;
-		  right: 0;
-		  margin: 0;
-		  padding: 0;
-		  opacity: 0;
-		  height:100%;
-		  width:100%;
+			position: absolute;
+			top: 0;
+			right: 0;
+			margin: 0;
+			padding: 0;
+			opacity: 0;
+			height:100%;
+			width:100%;
 		}
+		#textbox1 {
+			border: 0px #666666;
+			font-size: 18px;
+			margin-top: 5px;
+			margin-left: 5px;
+			padding: 10px;
+			width: 760%88px;
+			height: 100%;
+		}
+
 	</style>
 
 <body>
@@ -396,20 +417,22 @@
 	<div class="container">
 	<button class="button" id="showModels"
 			style="vertical-align:middle;width:262px;background-color:#666666"><span>Save Lens Models</span></button>
-	<!--<button class="button"-->
-			<!--style="vertical-align:middle;width:262px;background-color:#666666"><span>Load Mass Models</span></button>-->
 	<button class="Uploadbtn" style="vertical-align:middle;width:262px;background-color:#666666">
 		<input class="input-upload" type="file" id="modelUpload"/>
 		<span>Read in Mass Models</span>
 	</button>
-	<!--<button class="button" id="imageUpload"-->
-			<!--style="vertical-align:middle;width:262px;background-color:#666666"><span>Upload Lensed Images</span></button>-->
 
 	<button class="Uploadbtn" style="vertical-align:middle;width:262px;background-color:#666666">
 		<input class="input-upload" type="file" id="imageUpload"/>
 		<span>Upload Lensed Images</span>
 	</button>
+
+	<input id="textbox1" type="text" placeholder="Input the URL of an Image"/>
+	<button class="button" id="buttonExecute"
+						style="margin-top:1px;margin-left:-162px;border-radius:0px;vertical-align:middle;width:162px;background-color:#666666"
+		><span>Upload URL</span></button>
 	</div>
+
 	<div class="container">
 		<div class="article">
 			<p>	<br/>

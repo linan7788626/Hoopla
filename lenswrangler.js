@@ -23,7 +23,7 @@
 
 		// Set some variables based on the inputs:
 		this.id = (obj && typeof obj.id == "string") ? obj.id : "lenswrangler-model";
-		this.pixscale = (obj && typeof obj.pixscale == "number") ? obj.pixscale : 1.0;
+		this.pixscale = (obj && typeof obj.pixscale == "number") ? obj.pixscale : 0.03;
 
 		// Set up the canvas for drawing the model image etc:
 		this.paper = new Canvas({ 'id': this.id });
@@ -114,7 +114,6 @@
 					var source = this.models[0].source;
 					components.splice(0, 0, source);
 					this.models[0].components = components;
-
 				}
 			}
 		}
@@ -380,14 +379,15 @@
 		return this;
 	}
 
-	LensWrangler.prototype.showModels = function(){
+	LensWrangler.prototype.showModels = function(fileName){
 		var str = JSON.stringify(this.models[0].components,
 								 function(key, val) {
 									 return val.toFixed ? Number(val.toFixed(3)):val;
 								 }, 4);
-		//alert(str);
+
 		var link = document.createElement('a');
-		link.download = 'lensModels.json';
+		//link.download = 'lensModels.json';
+		link.download = fileName;
 		var blob = new Blob([str], {type: 'text/plain'});
 		link.href = window.URL.createObjectURL(blob);
 		link.click();
@@ -437,7 +437,7 @@
 				}
 			}
 
-			var lasso = this.getContours(timage, [0.8]);
+			var lasso = this.getContours(timage, [0.5]);
       		outline = lasso.contourList();
       		outline = this.downsample(outline);
 			this.drawContours(this.srcmodelPaper, outline, {color:'#66ccff', lw:1.1});
@@ -453,7 +453,7 @@
 					pimage[row][col] = this.lens.predictedimage[i];
 				}
 			}
-			var lasso = this.getContours(pimage, [0.8]);
+			var lasso = this.getContours(pimage, [0.5]);
       		outline = lasso.contourList();
       		outline = this.downsample(outline);
 			this.drawContours(this.predictionPaper, outline, {color:'#66ccff', lw:1.1});
