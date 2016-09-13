@@ -379,15 +379,26 @@
 		return this;
 	}
 
-	LensWrangler.prototype.showModels = function(fileName){
-		var str = JSON.stringify(this.models[0].components,
+	LensWrangler.prototype.showModels = function(imgSrc){
+		//var str = JSON.stringify(this.models[0].components,
+								 //function(key, val) {
+									 //return val.toFixed ? Number(val.toFixed(3)):val;
+								 //}, 4);
+		this.models[0].name = imgSrc.split('/')[imgSrc.split('/').length-1].split('.')[0];
+		this.models[0].src = imgSrc;
+
+		delete this.models[0].source;
+		delete this.models[0].PSFwidth;
+
+		var str = JSON.stringify(this.models[0],
 								 function(key, val) {
 									 return val.toFixed ? Number(val.toFixed(3)):val;
 								 }, 4);
 
 		var link = document.createElement('a');
 		//link.download = 'lensModels.json';
-		link.download = fileName;
+
+		link.download = this.models[0].name+'.JSON';
 		var blob = new Blob([str], {type: 'text/plain'});
 		link.href = window.URL.createObjectURL(blob);
 		link.click();

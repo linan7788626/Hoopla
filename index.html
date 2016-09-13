@@ -173,7 +173,8 @@
 			}
 
 			document.getElementById("showModels").onclick = function fun() {
-				wrangler.showModels(img_src.src.split('/')[img_src.src.split('/').length-1].split('.')[0]+'.JSON');
+				//wrangler.showModels(img_src.src.split('/')[img_src.src.split('/').length-1].split('.')[0]+'.JSON');
+				wrangler.showModels(img_src.src);
 			}
 
 			document.getElementById('buttonExecute').onclick = function passURL() {
