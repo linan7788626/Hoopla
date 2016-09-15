@@ -1,28 +1,30 @@
 /*
- * Javascript Lens Wrangler
+ * Javascript Lens Modeling
  *
  * 2013 Phil Marshall & Stuart Lowe
+ * 2016 Nan Li
  *
- * Licensed under the MPL http://www.mozilla.org/MPL/MPL-1.1.txt
+ * Licensed under MIT
  *
  * Requires lens.js, from https://raw.github.com/slowe/lensjs/master/lens.js
  *
  * History:
- *   2013-02-08 Mashed together inexpertly from LensWrangler and lensjs/index.html
+ *   2013-02-08 Mashed together inexpertly from Hoopla and lensjs/index.html
+ *   2016-07+ Extended to include elliptical models, file IO
  */
 
 // Enclose the Javascript
 (function(exports) {
-	exports.LensWrangler = LensWrangler;
+	exports.Hoopla = Hoopla;
 
 	// First we will create the basic function
-	function LensWrangler(obj) {
+	function Hoopla(obj) {
 
-		this.srcmodel = (obj && typeof obj.srcmodel === "string") ? obj.srcmodel : "lenswrangler-srcmodel";
-		this.prediction = (obj && typeof obj.prediction === "string") ? obj.prediction : "lenswrangler-prediction";
+		this.srcmodel = (obj && typeof obj.srcmodel === "string") ? obj.srcmodel : "hoopla-srcmodel";
+		this.prediction = (obj && typeof obj.prediction === "string") ? obj.prediction : "hoopla-prediction";
 
 		// Set some variables based on the inputs:
-		this.id = (obj && typeof obj.id == "string") ? obj.id : "lenswrangler-model";
+		this.id = (obj && typeof obj.id == "string") ? obj.id : "hoopla-model";
 		this.pixscale = (obj && typeof obj.pixscale == "number") ? obj.pixscale : 0.03;
 
 		// Set up the canvas for drawing the model image etc:
@@ -78,13 +80,13 @@
 		this.init();
 	}
 
-	LensWrangler.prototype.loadModel = function(components) {
+	Hoopla.prototype.loadModel = function(components) {
 		console.log('loadModel');
 		this.models[0].components = components;
     	this.init();
 	}
 
-	LensWrangler.prototype.updateModel = function(components) {
+	Hoopla.prototype.updateModel = function(components) {
 		console.log('updateModel');
 		if (components.length === 0) {
 			if (this.models[0].components.length === 0) {
@@ -120,7 +122,7 @@
     	this.init();
 	}
 
-	LensWrangler.prototype.getContours = function(data,z){
+	Hoopla.prototype.getContours = function(data,z){
 		var c = new Conrec();
 
 		// Check inputs
@@ -149,7 +151,7 @@
 		return c;
 	}
 
-	LensWrangler.prototype.drawContours = function(canvas, c, opt){
+	Hoopla.prototype.drawContours = function(canvas, c, opt){
 		if(c.length < 1) return;
 
 		var color = (opt && typeof opt.color==="string") ? opt.color : '#FFFFFF';
@@ -168,7 +170,7 @@
 		return this;
 	}
 
-	LensWrangler.prototype.drawAll = function(lens,canvas){
+	Hoopla.prototype.drawAll = function(lens,canvas){
 		this.drawComponent("lens");
 		this.drawComponent("mag");
 		this.drawComponent("image");
@@ -176,7 +178,7 @@
 	}
 
 	// Draw a specific component of the Lens object
-	LensWrangler.prototype.drawComponent = function(mode){
+	Hoopla.prototype.drawComponent = function(mode){
 
 		lens = this.lens;
 		canvas = this.paper;
@@ -261,13 +263,13 @@
 		return this;
 	}
 
-	LensWrangler.prototype.setStatus = function(msg){
+	Hoopla.prototype.setStatus = function(msg){
 		if(document.getElementById('status')) document.getElementById('status').innerHTML = msg;
 	}
 
 
 	// We need to set up.
-	LensWrangler.prototype.setup = function(){
+	Hoopla.prototype.setup = function(){
 
 		this.buttons = { crit: document.getElementById('criticalcurve') };
 		var _obj = this;
@@ -291,7 +293,7 @@
 	}
 
 	// Return a model by name
-	LensWrangler.prototype.getModel = function(name){
+	Hoopla.prototype.getModel = function(name){
 		if(typeof name === "string"){
 			for(var i = 0; i < this.models.length; i++){
 				if(this.models[i].name==name) return this.models[i];
@@ -301,7 +303,7 @@
 		return this.models[0];
 	}
 
-	LensWrangler.prototype.init = function(inp,fnCallback){
+	Hoopla.prototype.init = function(inp,fnCallback){
 		this.model = this.getModel(inp);
 
 		if(typeof this.model.src === "string") this.loadImage(this.model.src);
@@ -366,10 +368,10 @@
 			this.paper.events[e[i]] = "";
 			if (e[i] === "mousemove") {
 				var _this = this;
-				this.srcmodelPaper.bind(e[i], { ev:ev, wrangler:this }, function(e) {
+				this.srcmodelPaper.bind(e[i], { ev:ev, hoopla:this }, function(e) {
 					_this.e = {x:e.x, y:e.y};
 					if (!_this.freezeSrcModel) {
-						e.data.wrangler.update(e);
+						e.data.hoopla.update(e);
 					}
 				});
 			}
@@ -379,7 +381,7 @@
 		return this;
 	}
 
-	LensWrangler.prototype.showModels = function(imgSrc){
+	Hoopla.prototype.showModels = function(imgSrc){
 		//var str = JSON.stringify(this.models[0].components,
 								 //function(key, val) {
 									 //return val.toFixed ? Number(val.toFixed(3)):val;
@@ -404,7 +406,7 @@
 		link.click();
 	}
 
-	LensWrangler.prototype.update = function(e){
+	Hoopla.prototype.update = function(e){
     if (!e) { return; }
 
 		// Get the size of the existing source
@@ -471,7 +473,7 @@
 		}
 	}
 	// Downsample contours from a list of contours
-	LensWrangler.prototype.downsample = function(contourList) {
+	Hoopla.prototype.downsample = function(contourList) {
 		var factor = 4;
     	var downsampledList = [];
 
@@ -488,7 +490,7 @@
 	}
 
 	// Loads the image file. You can provide a callback or have
-	LensWrangler.prototype.loadImage = function(source, fnCallback){
+	Hoopla.prototype.loadImage = function(source, fnCallback){
 
 		var src = "";
 
@@ -513,7 +515,7 @@
 	}
 
 	// Attach a handler to an event for the Canvas object in a style similar to that used by jQuery
-	LensWrangler.prototype.bind = function(ev,e,fn){
+	Hoopla.prototype.bind = function(ev,e,fn){
 		if(typeof ev!="string") return this;
 		if(typeof fn==="undefined"){
 			fn = e;
@@ -528,7 +530,7 @@
 	}
 	// Trigger a defined event with arguments. This is for internal-use to be
 	// sure to include the correct arguments for a particular event
-	LensWrangler.prototype.trigger = function(ev,args){
+	Hoopla.prototype.trigger = function(ev,args){
 		if(typeof ev != "string") return;
 		if(typeof args != "object") args = {};
 		var o = [];

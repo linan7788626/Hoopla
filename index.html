@@ -194,7 +194,7 @@
 				reader.onload = function(){
 					var text = reader.result;
 					var data = JSON.parse(text);
-					lets.loadModel(data.components);
+					lets.loadModel(data);
 				};
 				reader.readAsText(input.files[0]);
 			};
