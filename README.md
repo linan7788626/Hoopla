@@ -5,7 +5,9 @@ Hoopla
 
 <!-- Insert screenshot here! -->
 
-**[Give Hoopla a Try!](http://linan7788626.github.io/pages/LensWranglerPlusPlus/index.html)**
+**[Give Hoopla a Try!](http://linan7788626.github.io/pages/Hoopla/index.html)**
+
+[![](https://github.com/drphilmarshall/Hoopla/blob/master/images/screenshot.png)](http://linan7788626.github.io/pages/Hoopla/index.html)
 
 ----
 
