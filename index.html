@@ -1,32 +1,32 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 
-	<title>Lens Wrangler++</title>
-    
+	<title>Hoopla</title>
+
 	<script type="text/javascript" src="lib/underscore.js"></script>
 	<script type="text/javascript" src="lib/eelens.js"></script>
 	<script type="text/javascript" src="lib/canvas.js"></script>
 	<script type="text/javascript" src="lib/conrec.js"></script>
-	<script type="text/javascript" src="lenswrangler.js"></script>
+	<script type="text/javascript" src="hoopla.js"></script>
 	<script type="text/javascript">
-		window.onload = function(e){ 
-			// Create a LensWrangler object. The ID is that of the <div>
-    		var wrangler = new LensWrangler({
-				id:'lenswrangler-srcmodel',
-				srcmodel: 'lenswrangler-srcmodel',
-				prediction: 'lenswrangler-prediction',
+		window.onload = function(e){
+			// Create a hoopla object. The ID is that of the <div>
+    		var lets = new hoopla({
+				id:'hoopla-srcmodel',
+				srcmodel: 'hoopla-srcmodel',
+				prediction: 'hoopla-prediction',
 				//pixscale: 0.0375
 				pixscale: 0.0225
     		});
 
     		//// Attach a function to the load event
 			//var offmsg = "Create a lens model to capture the blue arcs";
-			//wrangler.bind("mouseout",function(){
+			//lets.bind("mouseout",function(){
 			//	this.setStatus(offmsg);
 			//}).bind("loadimage",function(){
 			//	this.setStatus(offmsg);
 			//});
-    		
+
     		// Using Brian C's Marking Surface library!!!
     		var ms = new MarkingSurface({
 				inputName: 'mass-model',
@@ -39,7 +39,7 @@
     		img.onload = function() {
 				var width = img.width;
 				var height = img.height;
-    		  
+
 				ms.addShape('image', {
 					'xlink:href': img.src,
 					width: width,
@@ -52,10 +52,10 @@
 				ms.rescale(0, 0, width, height);
 				var scaleX = 400 / img.width;
 				var scaleY = 400 / img.height;
-    		  
+
 				function getThetaE(d) {
-					var a = d.rx * wrangler.pixscale;
-					var b = d.ry * wrangler.pixscale;
+					var a = d.rx * lets.pixscale;
+					var b = d.ry * lets.pixscale;
 					return Math.sqrt(a * b);
 					//return Math.max(a , b);
 				}
@@ -69,11 +69,11 @@
 				function getAngle(d) {
 					return d.angle;
 				}
-    		  
+
 				function getCoords(d) {
-					return wrangler.lens.pix2ang({x: scaleX * d.x, y: scaleY * d.y});
+					return lets.lens.pix2ang({x: scaleX * d.x, y: scaleY * d.y});
 				}
-    		  
+
 				function updateModel() {
 					var data = JSON.parse(ms.getValue());
 					var components = data.map(function(d) {
@@ -87,7 +87,7 @@
 							y: coords.y
 						}
 					});
-					wrangler.updateModel(components);
+					lets.updateModel(components);
 				}
 				var debouncedUpdateModel = _.debounce(updateModel, 200);
 				ms.on('marking-surface:change', debouncedUpdateModel);
@@ -106,7 +106,7 @@
     		img_src.onload = function() {
 				var width = img_src.width;
 				var height = img_src.height;
-    		  
+
 				ms_src.addShape('image', {
 					'xlink:href': img_src.src,
 					width: width,
@@ -119,10 +119,10 @@
 				ms_src.rescale(0, 0, width, height);
 				var scaleX = 400 / img_src.width;
 				var scaleY = 400 / img_src.height;
-    		  
+
 				function getSize(d) {
-					var a = d.rx * wrangler.pixscale;
-					var b = d.ry * wrangler.pixscale;
+					var a = d.rx * lets.pixscale;
+					var b = d.ry * lets.pixscale;
 					return Math.sqrt(a * b);
 					//return Math.max(a , b);
 				}
@@ -136,11 +136,11 @@
 				function getAngle(d) {
 					return d.angle;
 				}
-    		  
+
 				function getCoords(d) {
-					return wrangler.lens.pix2ang({x: scaleX * d.x, y: scaleY * d.y});
+					return lets.lens.pix2ang({x: scaleX * d.x, y: scaleY * d.y});
 				}
-    		  
+
 				function updateModel() {
 					var data = JSON.parse(ms_src.getValue());
 					var components = data.map(function(d) {
@@ -154,7 +154,7 @@
 							y: coords.y
 						}
 					});
-					wrangler.updateModel(components);
+					lets.updateModel(components);
 				}
 				var debouncedUpdateModel = _.debounce(updateModel, 200);
 				ms_src.on('marking-surface:change', debouncedUpdateModel);
@@ -166,24 +166,24 @@
 				var url = window.URL.createObjectURL(imageFile);
 				img.src = url;
 				img_src.src = url;
-				document.getElementById("lenswrangler-srcmodel").style.backgroundImage
+				document.getElementById("hoopla-srcmodel").style.backgroundImage
 					= "url(" + url + ")";
-				document.getElementById("lenswrangler-prediction").style.backgroundImage
+				document.getElementById("hoopla-prediction").style.backgroundImage
 					= "url(" + url + ")";
 			}
 
 			document.getElementById("showModels").onclick = function fun() {
-				//wrangler.showModels(img_src.src.split('/')[img_src.src.split('/').length-1].split('.')[0]+'.JSON');
-				wrangler.showModels(img_src.src);
+				//lets.showModels(img_src.src.split('/')[img_src.src.split('/').length-1].split('.')[0]+'.JSON');
+				lets.showModels(img_src.src);
 			}
 
 			document.getElementById('buttonExecute').onclick = function passURL() {
 				url = document.getElementById('textbox1').value
 				img.src = url;
 				img_src.src = url;
-				document.getElementById("lenswrangler-srcmodel").style.backgroundImage
+				document.getElementById("hoopla-srcmodel").style.backgroundImage
 					= "url(" + url + ")";
-				document.getElementById("lenswrangler-prediction").style.backgroundImage
+				document.getElementById("hoopla-prediction").style.backgroundImage
 					= "url(" + url + ")";
 			}
 
@@ -194,7 +194,7 @@
 				reader.onload = function(){
 					var text = reader.result;
 					var data = JSON.parse(text);
-					wrangler.loadModel(data);
+					lets.loadModel(data);
 				};
 				reader.readAsText(input.files[0]);
 			};
@@ -211,10 +211,10 @@
 		.container {
 			width: 840px;
 		}
-  
+
 		h1, h2, h3, h4 { font-family: Arial,serif; }
 		h1 { margin-bottom: 0.5em; color: #FFFFFF; }
-  
+
 		h4 { color: #666666; }
 		a { color: #666666; }
 
@@ -223,11 +223,11 @@
 		    display: inline;
 		    margin-left: 5px;
 		}
-		  
+
 		.inline-block {
 		    display: inline-block;
 		}
-		  
+
 		.captions {
 			font-size:20px;
 			font-weight: bold;
@@ -244,8 +244,8 @@
 			padding-left: 20px;
 			margin-bottom: 50;
 		}
-		
-		#srccaption, #predcaption { 
+
+		#srccaption, #predcaption {
 			padding-top:100;
 			border: 1px solid #666666;
 			background-color: #666666;
@@ -254,11 +254,11 @@
 			padding-left: 20px;
 			margin-bottom: 50;
 		}
-	  
-		.bar { 
-			width: 400px; 
-			height: 400px; 
-			float: left; 
+
+		.bar {
+			width: 400px;
+			height: 400px;
+			float: left;
 			margin: 5px;
 			margin-bottom: 5px;
 			border: 1px solid #666666;
@@ -268,14 +268,14 @@
 			background-image: url("http://raw.githubusercontent.com/linan7788626/linan7788626.github.io/master/images/ering.jpg");
 			background-size: 400px 400px
 		}
-		.barTitle { 
+		.barTitle {
 			font-family: Arial,serif;
 			padding-bottom:20px;
 			font-size:22px;
 			font-weight: bold;
-			width: 400px; 
-			height: 20px; 
-			float: left; 
+			width: 400px;
+			height: 20px;
+			float: left;
 			margin: 5px;
 			margin-bottom: -5px;
 			border: 1px solid #666666;
@@ -309,14 +309,14 @@
 			cursor: pointer;
 			margin: 5px;
 		}
-		
+
 		.button span {
 			cursor: pointer;
 			display: inline-block;
 			position: relative;
 			transition: 0.5s;
 		}
-		
+
 		.button span:after {
 			content: '»';
 			position: absolute;
@@ -325,11 +325,11 @@
 			right: -20px;
 			transition: 0.5s;
 		}
-		
+
 		.button:hover span {
 			padding-right: 25px;
 		}
-		
+
 		.button:hover span:after {
 			opacity: 1;
 			right: 0;
@@ -358,7 +358,7 @@
 			cursor: pointer;
 			margin: 5px;
 		}
-		
+
 		.Uploadbtn .input-upload {
 			position: absolute;
 			top: 0;
@@ -394,15 +394,15 @@
 <body>
 	<div>
 		<header class="inner">
-			<h1>Lens Wrangler Plus Plus</h1>
-			<h4><a href="https://github.com/drphilmarshall/LensWrangler">Lens
-					Wrangler</a> with Elliptical Lenses and Sources</h4>
+			<h1>Hoopla</h1>
+			<h4><a href="https://github.com/linan7788626/hoopla">Lens
+					Modeling in Javascript</a> with Elliptical Lenses and Sources</h4>
 		</header>
 	</div>
 	<div class="container">
 		<div id="masscaption" class="barTitle">
 			<p style="margin-top: 10px;margin-left: -8px;">Mass Model</p>
-			
+
 		</div>
 		<div id="srccaption" class="barTitle">
 			<p style="margin-top: 10px;margin-left: -8px;">Source Model</p>
@@ -422,8 +422,8 @@
 	</div>
 
 	<div class="container">
-		<div id="lenswrangler-srcmodel" class="bar"></div>
-		<div id="lenswrangler-prediction" class="bar"></div>
+		<div id="hoopla-srcmodel" class="bar"></div>
+		<div id="hoopla-prediction" class="bar"></div>
 	</div>
 	<div class="container">
 	<button class="button" id="showModels"
@@ -442,7 +442,7 @@
 		<input id="textbox1" type="text" placeholder="Input the URL of an Image"/>
 		<button class="button" id="buttonExecute" style="width:150px;background-color:#666666"
 		><span>Upload URL</span></button>
-			
+
 
 	</div>
 	</div>
@@ -468,18 +468,18 @@
 	<div class="container">
 	<footer>
 		<p class="greywords"><a
-			href="https://github.com/linan7788626/LensWranglerPlusPlus">LensWrangler
+			href="https://github.com/linan7788626/hooplaPlusPlus">hoopla
    Plus Plus</a> is based on <a
-   href="https://github.com/drphilmarshall/LensWrangler">LensWrangler</a>,
-   modified by <a href="https://github.com/linan7788626">Nan Li</a>. <br/> 
-   <a href="https://github.com/drphilmarshall/LensWrangler">LensWrangler</a> is maintained by <a href="https://github.com/drphilmarshall">Phil Marshall</a>, <a href="https://github.com/kapadia">Amit Kapadia</a> and
+   href="https://github.com/drphilmarshall/hoopla">hoopla</a>,
+   modified by <a href="https://github.com/linan7788626">Nan Li</a>. <br/>
+   <a href="https://github.com/drphilmarshall/hoopla">hoopla</a> is maintained by <a href="https://github.com/drphilmarshall">Phil Marshall</a>, <a href="https://github.com/kapadia">Amit Kapadia</a> and
 	<a href="https://github.com/slowe">Stuart Lowe</a>. <br/>
 	This page is published with <a
 				href="http://pages.github.com">GitHub Pages</a>. <br/></p>
 	</footer>
 	<a href="http://linan7788626.github.io"><button class="button" style="vertical-align:middle"><span>Go Back</span></button></a>
 	</div>
-    
+
     <script type="text/javascript" src="lib/marking/marking-surface.js"></script>
     <script type="text/javascript" src="lib/marking/tools/ellipse.js"></script>
 </body>
