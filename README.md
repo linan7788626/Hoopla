@@ -9,7 +9,7 @@ Hoopla
 
 [![](https://github.com/drphilmarshall/Hoopla/blob/master/images/screenshot.png)](http://linan7788626.github.io/pages/Hoopla/index.html)
 
-[Model parameters for this example](https://github.com/drphilmarshall/Hoopla/blob/master/screenshot.JSON)
+[Model parameters for this example](https://raw.githubusercontent.com/linan7788626/Hoopla/master/models/screenshot.JSON)
 
 ----
 
