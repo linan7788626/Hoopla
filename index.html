@@ -7,6 +7,7 @@
 	<script type="text/javascript" src="lib/eelens.js"></script>
 	<script type="text/javascript" src="lib/canvas.js"></script>
 	<script type="text/javascript" src="lib/conrec.js"></script>
+	<script type="text/javascript" src="lib/optimize.js"></script>
 	<script type="text/javascript" src="hoopla.js"></script>
 	<script type="text/javascript">
 		window.onload = function(e){
@@ -18,14 +19,6 @@
 				//pixscale: 0.0375
 				pixscale: 0.0225
     		});
-
-    		//// Attach a function to the load event
-			//var offmsg = "Create a lens model to capture the blue arcs";
-			//lets.bind("mouseout",function(){
-			//	this.setStatus(offmsg);
-			//}).bind("loadimage",function(){
-			//	this.setStatus(offmsg);
-			//});
 
     		// Using Brian C's Marking Surface library!!!
     		var ms = new MarkingSurface({
@@ -170,12 +163,12 @@
 					= "url(" + url + ")";
 				document.getElementById("hoopla-prediction").style.backgroundImage
 					= "url(" + url + ")";
-			}
+			};
 
 			document.getElementById("showModels").onclick = function fun() {
 				//lets.showModels(img_src.src.split('/')[img_src.src.split('/').length-1].split('.')[0]+'.JSON');
 				lets.showModels(img_src.src);
-			}
+			};
 
 			document.getElementById('buttonExecute').onclick = function passURL() {
 				url = document.getElementById('textbox1').value
@@ -185,7 +178,7 @@
 					= "url(" + url + ")";
 				document.getElementById("hoopla-prediction").style.backgroundImage
 					= "url(" + url + ")";
-			}
+			};
 
 			document.getElementById('modelUpload').onchange = function(e) {
 				var input = e.target;
@@ -198,6 +191,147 @@
 				};
 				reader.readAsText(input.files[0]);
 			};
+
+			function calAlpha(xl,yl,xlc,ylc,re,ql,phl) {
+
+				var	alpha = { x: 0.0, y: 0.0 };
+				var cs, sn;
+				var rc = 0.0;
+			
+				cs = Math.cos(phl);
+				sn = Math.sin(phl);
+			
+				x = xl - xlc;
+				y = yl - ylc;
+			
+				sx_r = x * cs + y * sn;
+				sy_r = -x * sn + y * cs;
+			
+				psi = Math.sqrt(ql*ql*(rc*rc+sx_r*sx_r)+sy_r*sy_r);
+			
+				sq = Math.sqrt(1.0-ql*ql);
+				pd1 = psi + rc;
+				pd2 = psi + rc*ql*ql;
+				fx1 = sq * sx_r / pd1;
+				fx2 = sq * sy_r / pd2;
+				qs = Math.sqrt(ql);
+			
+				a1 = qs / sq * Math.atan(fx1);
+				a2 = qs / sq * Math.atanh(fx2);
+			
+				dx = (a1 * cs - a2 * sn);
+				dy = (a2 * cs + a1 * sn);
+			
+				// Add lensing effects of just this component:
+				alpha.x = re*dx;
+				alpha.y = re*dy;
+				return alpha;
+			}
+
+			function calImage(xs, ys, xsc, ysc, sig2, qs, phs) {
+				var r2, img, phirad;
+				// Loop over x and y. Store 1-D pixel index as i.
+				phirad = -phs/180*Math.PI;
+				xnew = (xs-xsc) * Math.cos(phirad) + (ys-ysc) * Math.sin(phirad)
+				ynew = (ys-ysc) * Math.cos(phirad) - (xs-xsc) * Math.sin(phirad)
+				r2 = ( xnew*xnew/qs + ynew*ynew*qs );
+				v = Math.exp(-r2/(2.0*sig2));
+				return img; // Allow this function to be chainable
+			}
+
+			function model_lensed_images(p, x1, x2) {
+				var xc1, xc2, re, ql, phl;
+				xc1 = p[0];
+				xc2 = p[1];
+				re = p[2]
+				if(p[3] <1.0){
+					ql = p[3];
+					phl = Math.PI * ((-p[4]+90) / 180);
+				}else{
+					ql = 1.0/p[3]-0.0000000001;
+					phl = Math.PI * (-p[4] / 180);
+				}
+				var alpha = calAlpha(x1,x2,xc1,xc2,re,ql,phl); 
+
+				var y1 = x1 - alpha.x;
+				var y2 = x2 - alpha.y;
+
+				var yc1, yc2, sig2, qs, phs;
+				yc1 = p[5];
+				yc2 = p[6];
+				sig2 = p[7];
+				if(p[8] <1.0){
+					ql = p[8];
+					phl = Math.PI * ((-p[9]+90) / 180);
+				}else{
+					ql = 1.0/p[8]-0.0000000001;
+					phl = Math.PI * (-p[9] / 180);
+				}
+
+				var img = calImage(y1,y2,yc1,yc2,sig2,qs,phs);
+				return img;
+			}
+
+			function getRedData() {
+
+				var img = new Image(400, 400);
+				img.src = "https://www.dropbox.com/s/659e1dwpqx749z0/lensed_galaxy.jpg?dl=0";
+
+				var canvas = document.createElement('canvas');
+				var context = canvas.getContext('2d');
+				context.drawImage(img, 0, 0);
+				var data = context.getImageData(400, 400, img.width, img.height).data;
+
+				console.log(img);
+				var red = new Array(data.length/4);
+				for(var i = 0, n = data.length; i < n; i += 4) {
+					red[Math.floor(i/4)] = data[i];
+					//var green = data[i + 1];
+					//var blue = data[i + 2];
+					//var alpha = data[i + 3];
+				}
+				return red;
+			}
+				
+			function chi2(p) {
+			    var i, chi;
+
+
+				var red = getRedData();
+			
+				chi = 0;
+			    for (i = 0; i < red.length; i++) {
+					x = i % this.w;
+					y = Math.floor(i/this.w);
+			        chi = chi + ((red[i] - model_lensed_images(p, x, y)));
+			    }
+			    var res = optimize.vector.dot(chi, chi);
+				return res;
+			}
+
+			document.getElementById("optimitzation").onclick = function do_fit(p0) {
+				var p0 = new Array(10);
+				var xc1,xc2,re,ql,phl;
+
+				xc1 = lets.models[0].components[1].x;
+				xc2 = lets.models[0].components[1].y;
+				re  = lets.models[0].components[1].theta_e;
+				ql  = lets.models[0].components[1].ell;
+				phl = lets.models[0].components[1].ang;
+				var yc1,yc2,sig2,qs,phs;
+				yc1 = lets.models[0].components[0].x;
+				yc2 = lets.models[0].components[0].y;
+				sig2= lets.models[0].components[0].size;
+				qs  = lets.models[0].components[0].ell;
+				phs = lets.models[0].components[0].ang;
+
+				p0 = [xc1,xc2,re,ql,phl,yc1,yc2,sig2,qs,phs];
+			    //p1 = optimize.newton(chi2, p0);
+			    p1 = optimize.fmin(chi2, p0);
+				console.log(p0);
+				console.log(p1);
+			};
+
 		}
 	</script>
 
@@ -430,23 +564,24 @@
 	</div>
 	<div class="container">
 	<button class="button" id="showModels"
-			style="vertical-align:middle;width:262px;background-color:#666666"><span>Save Lens Models</span></button>
-	<button class="Uploadbtn" style="vertical-align:middle;width:262px;background-color:#666666">
+			style="vertical-align:middle;width:193px;background-color:#666666"><span>Save Models</span></button>
+	<button class="Uploadbtn" style="vertical-align:middle;width:193px;background-color:#666666">
 		<input class="input-upload" type="file" id="modelUpload"/>
-		<span>Read in Mass Models</span>
+		<span>Load Models</span>
 	</button>
 
-	<button class="Uploadbtn" style="vertical-align:middle;width:262px;background-color:#666666">
+	<button class="Uploadbtn" style="vertical-align:middle;width:193px;background-color:#666666">
 		<input class="input-upload" type="file" id="imageUpload"/>
-		<span>Upload Lensed Images</span>
+		<span>Upload Images</span>
 	</button>
+
+	<button class="button" id="optimitzation"
+			style="vertical-align:middle;width:193px;background-color:#666666"><span>Optimization</span></button>
 
 	<div class="wrapper">
 		<input id="textbox1" type="text" placeholder="Input the URL of an Image"/>
 		<button class="button" id="buttonExecute" style="width:150px;background-color:#666666"
 		><span>Upload URL</span></button>
-
-
 	</div>
 	</div>
 
@@ -478,7 +613,11 @@
 	        This page is published with <a href="http://pages.github.com">GitHub Pages</a>. <br/>
 		</p>
 	</footer>
-	<a href="http://linan7788626.github.io"><button class="button" style="vertical-align:middle"><span>Go Back</span></button></a>
+	<a href="http://linan7788626.github.io">
+		<button class="button" style="vertical-align:middle">
+			<span>Go Back</span>
+		</button>
+	</a>
 	</div>
 
     <script type="text/javascript" src="lib/marking/marking-surface.js"></script>

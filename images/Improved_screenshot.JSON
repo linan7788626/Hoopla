@@ -1,0 +1,22 @@
+{
+    "src": "http://raw.githubusercontent.com/linan7788626/linan7788626.github.io/master/images/ering.jpg", 
+    "name": "Improved Model of ering", 
+    "components": [
+        {
+            "ang": -20.605393274896215, 
+            "ell": 0.85811702324077066, 
+            "plane": "source", 
+            "y": 0.013799645061866476, 
+            "x": 0.13248590321978926, 
+            "size": 0.33212748517177398
+        }, 
+        {
+            "theta_e": 2.0996502162988366, 
+            "ell": 0.72877508597720253, 
+            "plane": "lens", 
+            "y": -0.049406236776338187, 
+            "x": -0.13284715814037365, 
+            "ang": -5.1802006902786815
+        }
+    ]
+}
