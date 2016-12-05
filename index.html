@@ -9,6 +9,8 @@
 	<script type="text/javascript" src="lib/conrec.js"></script>
 	<script type="text/javascript" src="hoopla.js"></script>
 	<script type="text/javascript">
+		xpixels = 400;
+		ypixels = 400;
 		window.onload = function(e){
 			// Create a hoopla object. The ID is that of the <div>
     		var lets = new Hoopla({
@@ -46,12 +48,12 @@
 					height: height
 				});
 				ms.svg.attr({
-					width: 400,
-					height: 400
+					width: xpixels,
+					height: ypixels
 				});
 				ms.rescale(0, 0, width, height);
-				var scaleX = 400 / img.width;
-				var scaleY = 400 / img.height;
+				var scaleX = xpixels / img.width;
+				var scaleY = ypixels / img.height;
 
 				function getThetaE(d) {
 					var a = d.rx * lets.pixscale;
@@ -113,12 +115,12 @@
 					height: height
 				});
 				ms_src.svg.attr({
-					width: 400,
-					height: 400
+					width: xpixels,
+					height: ypixels
 				});
 				ms_src.rescale(0, 0, width, height);
-				var scaleX = 400 / img_src.width;
-				var scaleY = 400 / img_src.height;
+				var scaleX = xpixels / img_src.width;
+				var scaleY = ypixels / img_src.height;
 
 				function getSize(d) {
 					var a = d.rx * lets.pixscale;
@@ -168,8 +170,12 @@
 				img_src.src = url;
 				document.getElementById("hoopla-srcmodel").style.backgroundImage
 					= "url(" + url + ")";
+				document.getElementById("hoopla-srcmodel").style.backgroundSize
+					= "100% 100%";
 				document.getElementById("hoopla-prediction").style.backgroundImage
 					= "url(" + url + ")";
+				document.getElementById("hoopla-prediction").style.backgroundSize
+					= "100% 100%";
 			}
 
 			document.getElementById("showModels").onclick = function fun() {
@@ -183,8 +189,12 @@
 				img_src.src = url;
 				document.getElementById("hoopla-srcmodel").style.backgroundImage
 					= "url(" + url + ")";
+				document.getElementById("hoopla-srcmodel").style.backgroundSize
+					= "100% 100%";
 				document.getElementById("hoopla-prediction").style.backgroundImage
 					= "url(" + url + ")";
+				document.getElementById("hoopla-prediction").style.backgroundSize
+					= "100% 100%";
 			}
 
 			document.getElementById('modelUpload').onchange = function(e) {
@@ -258,15 +268,16 @@
 		.bar {
 			width: 400px;
 			height: 400px;
+			max-width: 400px; 
+			max-height: 400px;
 			float: left;
 			margin: 5px;
 			margin-bottom: 5px;
 			border: 1px solid #666666;
-			/* background-image:
-			   url("http://lenszoo.files.wordpress.com/2013/12/asw0009cjs-zoomed.jpg");
-			   */
-			background-image: url("http://raw.githubusercontent.com/linan7788626/linan7788626.github.io/master/images/ering.jpg");
-			background-size: 400px 400px
+			/*background-image: url("http://raw.githubusercontent.com/linan7788626/linan7788626.github.io/master/images/ering.jpg");
+			background-size: 400px 400px;*/
+			background: url("http://raw.githubusercontent.com/linan7788626/linan7788626.github.io/master/images/ering.jpg") no-repeat;
+			background-size:contain;
 		}
 		.barTitle {
 			font-family: Arial,serif;
