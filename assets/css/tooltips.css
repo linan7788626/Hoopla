@@ -17,7 +17,7 @@
 /* Position tooltip above the element */
 [data-tooltip]:before {
   position: absolute;
-  bottom: 150%;
+  bottom: 100%;
   left: 0%;
   margin-bottom: 5px;
   margin-left: 0px;
@@ -30,7 +30,7 @@
   background-color: hsla(0, 0%, 20%, 0.9);
   color: #fff;
   content: attr(data-tooltip);
-  /*text-align: center;*/
+  text-align: justify;
   font-size: 14px;
   line-height: 1.2;
 }
@@ -78,7 +78,7 @@
 
 [data-tooltip-down]:before {
   position: absolute;
-  top: 150%;
+  top: 100%;
   left: 0%;
   margin-top: 5px;
   margin-left: 0px;
@@ -91,7 +91,7 @@
   background-color: hsla(0, 0%, 20%, 0.9);
   color: #fff;
   content: attr(data-tooltip-down);
-  /*text-align: center;*/
+  text-align: justify;
   font-size: 14px;
   line-height: 1.2;
 }
@@ -138,7 +138,7 @@
 
 [data-tooltip-down2]:before {
   position: absolute;
-  top: 150%;
+  top: 100%;
   left: 0%;
   margin-top: 5px;
   margin-left: 0px;
@@ -151,7 +151,7 @@
   background-color: hsla(0, 0%, 20%, 0.9);
   color: #fff;
   content: attr(data-tooltip-down2);
-  /*text-align: center;*/
+  text-align: justify;
   font-size: 14px;
   line-height: 1.2;
 }

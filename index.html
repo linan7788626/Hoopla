@@ -7,6 +7,8 @@
 	<script type="text/javascript" src="lib/eelens.js"></script>
 	<script type="text/javascript" src="lib/canvas.js"></script>
 	<script type="text/javascript" src="lib/conrec.js"></script>
+	<script type="text/javascript" src="lib/jquery.min.js"></script>
+	<script type="text/javascript" src="lib/jquery.hoverIntent.js"></script>
 	<script type="text/javascript" src="hoopla.js"></script>
 	<script type="text/javascript">
 		xpixels = 400;
@@ -152,17 +154,17 @@
 				var debouncedUpdateModel = _.debounce(updateModel, 200);
 				ms_src.on('marking-surface:change', debouncedUpdateModel);
 			}
-			img_src.src = "http://raw.githubusercontent.com/linan7788626/linan7788626.github.io/master/images/ering.jpg";
+			img_src.src = "http://raw.githubusercontent.com/linan7788626/linan7788626.github.io/master/images/black.png";
 
 			document.getElementById('imageUpload').onchange = function(e) {
 				var imageFile = this.files[0];
 				var url = window.URL.createObjectURL(imageFile);
 				img.src = url;
-				img_src.src = url;
-				document.getElementById("hoopla-srcmodel").style.backgroundImage
-					= "url(" + url + ")";
-				document.getElementById("hoopla-srcmodel").style.backgroundSize
-					= "100% 100%";
+			//	img_src.src = url;
+			//	document.getElementById("hoopla-srcmodel").style.backgroundImage
+			//		= "url(" + url + ")";
+			//	document.getElementById("hoopla-srcmodel").style.backgroundSize
+			//		= "100% 100%";
 				document.getElementById("hoopla-prediction").style.backgroundImage
 					= "url(" + url + ")";
 				document.getElementById("hoopla-prediction").style.backgroundSize
@@ -174,19 +176,19 @@
 				lets.showModels(img_src.src);
 			}
 
-			document.getElementById('buttonExecute').onclick = function passURL() {
-				url = document.getElementById('textbox1').value
-				img.src = url;
-				img_src.src = url;
-				document.getElementById("hoopla-srcmodel").style.backgroundImage
-					= "url(" + url + ")";
-				document.getElementById("hoopla-srcmodel").style.backgroundSize
-					= "100% 100%";
-				document.getElementById("hoopla-prediction").style.backgroundImage
-					= "url(" + url + ")";
-				document.getElementById("hoopla-prediction").style.backgroundSize
-					= "100% 100%";
-			}
+			//document.getElementById('buttonExecute').onclick = function passURL() {
+			//	url = document.getElementById('textbox1').value
+			//	img.src = url;
+			//	img_src.src = url;
+			//	document.getElementById("hoopla-srcmodel").style.backgroundImage
+			//		= "url(" + url + ")";
+			//	document.getElementById("hoopla-srcmodel").style.backgroundSize
+			//		= "100% 100%";
+			//	document.getElementById("hoopla-prediction").style.backgroundImage
+			//		= "url(" + url + ")";
+			//	document.getElementById("hoopla-prediction").style.backgroundSize
+			//		= "100% 100%";
+			//}
 
 			document.getElementById('modelUpload').onchange = function(e) {
 				var input = e.target;
@@ -199,12 +201,87 @@
 				};
 				reader.readAsText(input.files[0]);
 			};
+
+			function coolTips() {
+				$('.coolTip').each(function(){
+					var $this = $(this);
+					var id = $this.attr('id');
+					var $elem = $('.' + id);
+			
+					$elem.removeAttr('title');
+			
+					$('<div/>',{'class' : 'tooltipWrapper un' + id}).appendTo($elem);
+					var $tipWrapper = $('.tooltipWrapper.un' + id);
+			
+					$this.appendTo($tipWrapper);
+					$this.show();
+			
+					$elem.hoverIntent({
+						sensitivity: 2,
+						out: function () { $tipWrapper.hide();},
+									over: function () {
+
+							var lOffset = $elem.offset().left;
+							var rOffset = '';
+							var tOffset = $elem.offset().bottom + $this.outerHeight() ;
+							var bOffset = '';
+
+							if ( $elem.offset().top < 512 ) {
+								lOffset = $elem.offset().left;
+								rOffset = '';
+								tOffset = $elem.offset().bottom + $this.outerHeight() ;
+								bOffset = '';
+							} else {
+								lOffset = 0;
+								rOffset ='';
+								tOffset ='';
+								bOffset = 23 + $this.outerHeight() ;
+							}
+
+							if ( $elem.offset().top >= 512 &&
+									$elem.offset().left < 128) {
+								lOffset = 13;
+								rOffset ='';
+								tOffset ='';
+								bOffset = -89 ;
+							}
+
+							console.log($elem.offset().top);
+							console.log($elem.offset().left);
+
+							//var lOffset = $elem.offset().left;
+							//var rOffset = '';
+							//if ( lOffset + $this.outerWidth() >= $(window).width() ) {
+							//	lOffset = '';
+							//	rOffset = 0;
+							//}
+							//var tOffset = $elem.offset().top + $elem.outerHeight();
+							//var bOffset = '';
+							//if ( tOffset + $this.outerHeight() >= $(window).height() ) {
+							//	tOffset = '';
+							//	bOffset = 0;
+							//}
+
+							$tipWrapper
+								.css('width','1')
+								.css('height','1')
+								.css('top', tOffset )
+								.css('bottom', bOffset )
+								.css('left', lOffset )
+								.css('right', rOffset )
+								.show()
+								.animate({ height:$this.outerHeight(), width:$this.outerWidth() });
+						}
+					});
+				});
+			}
+			coolTips();
 		}
 	</script>
 
 	<style type="text/css">
 		body {
-			font-family: serif,Helvetica,Arial,sans-serif;
+			font-family: Serif,Helvetica,Arial,sans-serif;
 			background-color: black;
 			color: #ffffff;
 		}
@@ -246,6 +323,16 @@
 			margin-bottom: 50;
 		}
 
+		#masscaption_c,#srcincaption_c {
+			padding-top:100;
+			border: 1px solid #666666;
+			background-color: #666666;
+			width: 380px;
+			color: #ffffff;
+			padding-left: 20px;
+			margin-bottom: 50;
+		}
+
 		#srccaption, #predcaption {
 			padding-top:100;
 			border: 1px solid #666666;
@@ -254,6 +341,31 @@
 			color: #ffffff;
 			padding-left: 20px;
 			margin-bottom: 50;
+		}
+
+
+		#srccaption_c, #predcaption_c {
+			padding-top:100;
+			border: 1px solid #666666;
+			background-color: #666666;
+			width: 380px;
+			color: #ffffff;
+			padding-left: 20px;
+			margin-bottom: 50;
+		}
+
+		.barSrc {
+			width: 400px;
+			height: 400px;
+			max-width: 400px; 
+			max-height: 400px;
+			float: left;
+			margin: 5px;
+			margin-bottom: 5px;
+			border: 1px solid #666666;
+			background-size: 400px 400px;
+			background:url("http://raw.githubusercontent.com/linan7788626/linan7788626.github.io/master/images/black.png") no-repeat;
+			background-size:contain;
 		}
 
 		.bar {
@@ -267,7 +379,7 @@
 			border: 1px solid #666666;
 			/*background-image: url("http://raw.githubusercontent.com/linan7788626/linan7788626.github.io/master/images/ering.jpg");
 			background-size: 400px 400px;*/
-			background: url("http://raw.githubusercontent.com/linan7788626/linan7788626.github.io/master/images/ering.jpg") no-repeat;
+			background:url("http://raw.githubusercontent.com/linan7788626/linan7788626.github.io/master/images/ering.jpg") no-repeat;
 			background-size:contain;
 		}
 		.barTitle {
@@ -391,39 +503,178 @@
 			display:inline-block;
 		}
 
+		.sect {
+		  /*cursor:pointer;
+		  display:inline-block;
+		  margin:20px 0;
+		  border:#999 solid 1px;
+		  padding:3px 5px;
+		  background:#C4DAE9;
+		  color:#3E6D8E;*/
+		}
+		
+		.tooltipWrapper {
+			overflow:hidden;
+			z-index:1002;
+			display:none;
+			position:absolute;
+		}
+		
+		.coolTip {
+		    width:242px;
+		    /*height:122px;*/
+		    top:0;
+		    left:0;
+		    cursor:auto;
+		    display:none;
+			-moz-border-radius:2px;
+			border-radius:2px;
+			border:0px solid #1c1c1c;
+			/*border-top:1px solid #444;*/
+			background-color:hsla(0, 0%, 20%, 0.9);
+			color:#e3e3e3;
+			text-align:left;
+			padding:10px;
+			/*-moz-box-shadow:0 2px 4px rgba(0,0,0,0.5),inset 0 1px 0 #727272;
+			-webkit-box-shadow:0 2px 4px rgba(0,0,0,0.5),inset 0 1px 0 #727272;
+			box-shadow:0 2px 4px rgba(0,0,0,0.5),inset 0 1px 0 #727272;*/
+			/*font-family:'Times New Roman','Helvetica
+			  Neue',Helvetica,Arial,sans-serif;*/
+			z-index:320;
+			position:relative;
+			font-size:16px;
+		}
+		
+		.coolTip .tm-heading{
+			color:#fff;
+			font-weight:bold;
+			border-bottom:1px solid #727272;
+			padding-bottom:8px;
+			margin-bottom:8px
+			font-family:Arial;
+		}
+		
+		.coolTip .tm-description{
+			line-height:17px;
+			font-size:16px;
+			margin-bottom:8px;
+			word-wrap:break-word
+			font-weight:normal;
+		}
+		
+		.coolTip .tm-description p{
+			margin-bottom:8px
+		}
+		
+		.coolTip .tm-description a,.coolTip .tm-description a:visited{
+			color:#b4d4ec
+		}
+		
+		.coolTip .tm-favorite{
+			color:#fdca5c;
+			font-size:16px;
+			text-decoration:none
+		}
+		
+		.coolTip .tm-favorite-clear{
+			color:#bbb;
+			font-size:16px;
+			padding-right:3px;
+			text-decoration:none
+		}
+		
+		.coolTip .tm-favorite-ignore{
+			color:#f00;
+			font-size:16px;
+			text-decoration:none
+		}
+		
+		.coolTip .tm-sub-links a,.coolTip .tm-sub-links a:visited{
+			font-weight:normal;
+			color:#f93;
+			text-decoration:none
+		}
+		
+		.coolTip .tm-sub-links a:hover{
+			color:#faaf65
+		}
+		
+		.coolTip .tm-links{
+			color:#727272;
+		    display:block;
+		    bottom:7px;
+		    position:absolute;
+		}
+		
+		.coolTip .tm-links a,#tag-menu .tm-links a:visited{
+			color:#b4d4ec;
+			font-size:16px;
+			text-decoration:none;
+			margin-right:8px
+		}
+		
+		.coolTip .tm-links a:hover{
+			color:#dcecf7
+		}
 	</style>
 
 <body>
 	<div>
 		<header class="inner">
-			<h1>Hoopla</h1>
-			<h3>
-				<a data-tooltip-down="Hoopla is an interactive lens modeling
-				tool in Javascript with elliptical lenses and sources. Drag your
-				mouse in the blocks Mass Model and Source Model to draw
-				ellipses, then move the cursor in the Source Plane block. Can
-				you discover anything interesting in the Image Plane block? Can
-				you reconstruct the Einstein Ring using your mouse? If you
-				reconstruct the lensed images successfully, you can use left
-				click on the block Source Plane to activate freeze-model, then
-				click the button Save Lens Models to save your model. If you
-				would like to email the model to linan7788626@gmail.com, I
-	   really appreciate it. Have Fun! "
-	   href="https://github.com/linan7788626/hoopla">About</a>	
-				<a data-tooltip-down="Hoopla is based on LensWrangler
-				(https://github.com/drphilmarshall/LensWrangler) 
-				by Phil Marshall, Amit Kapadia, and Stuart Lowe, 
-				with modifications by Nan Li. This page is published with GitHub Pages."
-				href="http://drphilmarshall.github.io/LensWrangler/">Credits</a>	
-				<a data-tooltip-down="There is another interactive lens modeling
-				tool named SpaghettiLens. If you are interested, please feel free to try
-				http://labs.spacewarps.org/spaghetti/. "
-				href="https://github.com/RafiKueng/SpaghettiLens">SpaghettiLens</a>
-			</h3>
+			<h2>Hoopla
+				<a class="sect about"
+					href="https://github.com/linan7788626/hoopla/">About</a>
+				<a class="sect credits"
+				href="http://drphilmarshall.github.io/LensWrangler/">Credits</a>
+			</h2>
 		</header>
 	</div>
 
-    <!--<a href="https://github.com/linan7788626/Hoopla"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>-->
+	<div class="coolTip" id="about">
+	    <div class="tm-heading">
+			About 
+	    </div>
+	
+	    <div class="tm-description" style="font-weight:normal;">
+			<p>Hoopla is an interactive lens modeling tool in Javascript with
+			elliptical lenses and sources. Drag your mouse in the blocks Mass
+			Model and Source Model to draw ellipses, then move the cursor in the
+			Source Plane block. Can you discover anything interesting in the
+			Image Plane block? Can you reconstruct the Einstein Ring using your
+			mouse? If you reconstruct the lensed images successfully, you can
+			use left click on the block Source Plane to activate freeze-model,
+			then click the button Save Lens Models to save your model. If you
+			would like to email the model to me, I really appreciate it. Have
+			Fun!</p>
+			<p>&nbsp;</p>
+		</div>
+	
+		<div class="tm-links" style="font-weight:normal;">
+			<a href="https://github.com/linan7788626/hoopla">Hoopla</a> 
+			<a href="mailto:linan7788626@gmail.com">My E-mail</a>
+		</div>
+	</div>
+
+	<div class="coolTip" id="credits">
+	    <div class="tm-heading">
+			CREDITS 
+	    </div>
+	
+	    <div class="tm-description" style="font-weight:normal;">
+			<p> Hoopla is based on LensWrangler by Phil Marshall, Amit Kapadia, and
+			Stuart Lowe, with modifications by Nan Li. You can click the CREDITS
+			to visit the webpage of LensWrangler. The webpage of Hoopla is
+			published with GitHub Pages.</p>
+			<p>&nbsp;</p>
+		</div>
+	
+		<div class="tm-links"  style="font-weight:normal;">
+			<a href="https://github.com/drphilmarshall/LensWrangler">LensWrangler</a> 
+			<a href="https://pages.github.com/">GitHub Pages</a>
+		</div>
+	</div>
+
+
 
 	<div class="container">
 		<div id="masscaption" class="barTitle">
@@ -451,13 +702,13 @@
 	</div>
 	<div class="container">
 		<div id="marking-container" class="bar"></div>
-		<div id="marking-container-src" class="bar" style="color: #666666;"></div>
+		<div id="marking-container-src" class="barSrc" style="color: #ffffff;"></div>
 	</div>
 	<div class="container">
-		<div id="masscaption" class="barTitle">
+		<div id="masscaption_c" class="barTitle">
 			<p style="margin-top: 10px;margin-left: -8px;">Source Plane</p>
 		</div>
-		<div id="srccaption" class="barTitle">
+		<div id="srccaption_c" class="barTitle">
 			<p style="margin-top: 10px;margin-left: -8px;">Image Plane</p>
 		</div>
 	</div>
@@ -468,74 +719,77 @@
 	</div>
 
 	<div class="container">
-		<button data-tooltip="Save Lens Models" class="button" id="showModels"
+		<button class="button saveModel" id="showModels"
 			style="vertical-align:middle;width:262px;background-color:#666666">
 			<span>Save Lens Models
 			</span>
 		</button>
 
-		<button
-   data-tooltip="An example of a lens model is in the link below: 
-   https://raw.githubusercontent.com/linan7788626/Hoopla/master/models/screenshot.JSON 
-   Before uploading a new model, please refresh the webpage.
-   After uploading a new lens model, please move your cursor on the SOURCE PLANE
-   block to check the new model." class="Uploadbtn button" 
+		<div class="coolTip" id="saveModel">
+		    <div class="tm-heading">
+				Save Lens Models 
+		    </div>
+		    <div class="tm-description">
+				<p>Save the mass model to a JSON file.</p>
+				<p>&nbsp;</p>
+			</div>
+			<div class="tm-links">
+				<a href="https://raw.githubusercontent.com/linan7788626/Hoopla/master/models/screenshot.JSON">A
+					Mass Model</a> 
+				<a href="https://pages.github.com/">GitHub Pages</a>
+			</div>
+		</div>
+
+		<button class="Uploadbtn button readinModels" 
 			style="vertical-align:middle;width:262px;background-color:#666666">
 			<span>Read in Mass Models
 				<input class="input-upload" type="file" id="modelUpload"/>
 			</span>
 		</button>
 
-		<button data-tooltip="Square Images Only. PNG, JPG, and JPEG are
-		  preferable. Before uploading new images, please refresh the webpage." class="Uploadbtn button"
-			style="vertical-align:middle;width:262px;background-color:#666666">
+		<div class="coolTip" id="readinModels">
+		    <div class="tm-heading">
+				Read in Mass Models 
+		    </div>
+		    <div class="tm-description">
+				<p>An example of a mass model is <a
+		   href="https://raw.githubusercontent.com/linan7788626/Hoopla/master/models/screenshot.JSON">here</a>.
+	   Before uploading a new model, please refresh the webpage. After uploading
+	   a new lens model, please move your cursor on the SOURCE PLANE block to
+	   check the new model."</p>
+				<p>&nbsp;</p>
+			</div>
+			<div class="tm-links">
+				<a href="https://raw.githubusercontent.com/linan7788626/Hoopla/master/models/screenshot.JSON">A
+					Mass Model</a> 
+				<a href="https://pages.github.com/">GitHub Pages</a>
+			</div>
+		</div>
+
+		<button class="Uploadbtn button loadinImages" style="vertical-align:middle;width:262px;background-color:#666666">
 			<span>Upload Lensed Images
 				<input class="input-upload" type="file" id="imageUpload"/>
 			</span>
 		</button>
 
-		<!--<div class="wrapper">-->
-			<!--<input id="textbox1" type="text" placeholder="Input the URL of an Image"/>-->
-			<!--<button data-tooltip="Square Images Only. PNG, JPG, and JPEG are-->
-		  <!--preferable. Before uploading new images, please refresh the webpage." class="button" id="buttonExecute" style="width:150px;background-color:#666666">-->
-				<!--<span>Upload URL</span>-->
-			<!--</button>-->
-		<!--</div>-->
-	</div>
-
-	<div class="container">
-		<div class="article">
-			<!--<p>	<br/>-->
-			<!--<br/>-->
-			<!--Drag your mouse in the blocks "Mass Model" and "Source Model" to <br/>-->
-			<!--draw ellipses, then move the cursor in the "Source Plane" block. Can <br/>-->
-			<!--you discover anything interesting in the "Image Plane" block? Can <br/>-->
-			<!--you reconstruct the Einstein Ring using your mouse? If you <br/>-->
-			<!--reconstruct the lensed images successfully, you can use left click <br/>-->
-			<!--on the block "Source Plane" to activate freeze-model, then click the <br/>-->
-			<!--button "Save Lens Models" to save your model. If you would like <br/>-->
-			<!--to email the model to <a href="mailto:linan7788626@gmail.com">linan7788626@gmail.com</a>, <br/>-->
-			<!--I really appreciate it. <br/>-->
-			<!--Have Fun!<br/>-->
-			<!--</p>-->
-			<!--<h3>-->
-			<!--There is another interactive lens modeling tool named <a href="https://github.com/RafiKueng/SpaghettiLens">SpaghettiLens</a>.<br/>-->
-			<!--Please feel free to try <a href="http://labs.spacewarps.org/spaghetti/">SpaghettiLens</a>, if you are interested.<br/>-->
-			<!--</h3>-->
+		<div class="coolTip" id="loadinImages">
+		    <div class="tm-heading">
+				Load in New Images 
+		    </div>
+		
+		    <div class="tm-description">
+				<p>Square Images Only. PNG, JPG, and JPEG are preferable. Before
+				uploading new images, please refresh the webpage.</p>
+				<p>&nbsp;</p>
+			</div>
+			<div class="tm-links">
+				<a href="https://raw.githubusercontent.com/linan7788626/Hoopla/master/models/screenshot.JSON">A
+					Mass Model</a> 
+				<a href="https://pages.github.com/">GitHub Pages</a>
+			</div>
 		</div>
-	</div>
 
-	<!--<div class="container">-->
-	<!--<footer>-->
-		<!--<p class="greywords"><a-->
-			<!--href="https://github.com/linan7788626/Hoopla">Hoopla</a>-->
-			<!--is based on <a href="https://github.com/drphilmarshall/LensWrangler">-->
-			<!--LensWrangler</a> by <a href="https://github.com/drphilmarshall">Phil Marshall</a>, <a href="https://github.com/kapadia">Amit Kapadia</a> and <a href="https://github.com/slowe">Stuart Lowe</a>, with modifications by <a href="https://github.com/linan7788626">Nan Li</a>. <br/>-->
-			<!--This page is published with <a href="http://pages.github.com">GitHub Pages</a>. <br/>-->
-		<!--</p>-->
-	<!--</footer>-->
-	<!--<a href="http://linan7788626.github.io"><button class="button" style="vertical-align:middle"><span>Go Back</span></button></a>-->
-	<!--</div>-->
+	</div>
 
     <script type="text/javascript" src="lib/marking/marking-surface.js"></script>
     <script type="text/javascript" src="lib/marking/tools/ellipse.js"></script>

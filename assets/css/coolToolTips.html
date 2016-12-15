@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="http://cherne.net/brian/resources/jquery.hoverIntent.js"></script>
+	<script type="text/javascript">
+		window.onload = function(e){
+		function coolTips() {
+			$('.coolTip').each(function(){
+				var $this = $(this);
+				var id = $this.attr('id');
+				var $elem = $('.' + id);
+		
+				$elem.removeAttr('title');
+		
+				$('<div/>',{'class' : 'tooltipWrapper un' + id}).appendTo($elem);
+				var $tipWrapper = $('.tooltipWrapper.un' + id);
+		
+				$this.appendTo($tipWrapper);
+				$this.show();
+		
+				$elem.hoverIntent({
+					sensitivity: 2,
+					out: function () { $tipWrapper.hide();	},
+								over: function () {
+						var lOffset = $elem.offset().left;
+						var rOffset = '';
+						if ( lOffset + $this.outerWidth() >= $(window).width() ) {
+							lOffset = '';
+							rOffset = 0;
+						}
+						var tOffset = $elem.offset().top + $elem.outerHeight();
+						var bOffset = '';
+						if ( tOffset + $this.outerHeight() >= $(window).height() ) {
+							tOffset = '';
+							bOffset = 0;
+						}
+						$tipWrapper
+							.css('width','1')
+							.css('height','1')
+							.css('top', tOffset )
+							.css('bottom', bOffset )
+							.css('left', lOffset )
+							.css('right', rOffset )
+							.show()
+							.animate({ height:$this.outerHeight(), width:$this.outerWidth() });
+					}
+				});
+			});
+		}
+		coolTips();
+	}
+		
+	</script>
+
+	<style type="text/css">
+		.sect {
+		  /*cursor:pointer;
+		  display:inline-block;
+		  margin:20px 0;
+		  border:#999 solid 1px;
+		  padding:3px 5px;
+		  background:#C4DAE9;
+		  color:#3E6D8E;*/
+		}
+		
+		.tooltipWrapper {
+			overflow:hidden;
+			z-index:1002;
+			display:none;
+			position:absolute;
+		}
+		
+		.coolTip {
+		    width:318px;
+		    height:122px;
+		    top:0;
+		    left:0;
+		    cursor:auto;
+		    display:none;
+			-moz-border-radius:2px;
+			border-radius:2px;
+			border:1px solid #1c1c1c;
+			/*border-top:1px solid #444;*/
+			background-color:hsla(0, 0%, 20%, 0.9);
+			color:#e3e3e3;
+			text-align:left;
+			padding:10px;
+			/*-moz-box-shadow:0 2px 4px rgba(0,0,0,0.5),inset 0 1px 0 #727272;
+			-webkit-box-shadow:0 2px 4px rgba(0,0,0,0.5),inset 0 1px 0 #727272;
+			box-shadow:0 2px 4px rgba(0,0,0,0.5),inset 0 1px 0 #727272;*/
+			font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
+			z-index:320;
+			position:relative;
+			font-size:12px;
+		}
+		
+		.coolTip .tm-heading{
+			color:#fff;
+			font-weight:bold;
+			border-bottom:1px solid #727272;
+			padding-bottom:8px;
+			margin-bottom:8px
+		}
+		
+		.coolTip .tm-description{
+			line-height:13px;
+			font-size:11px;
+			margin-bottom:8px;
+			word-wrap:break-word
+		}
+		
+		.coolTip .tm-description p{
+			margin-bottom:8px
+		}
+		
+		.coolTip .tm-description a,.coolTip .tm-description a:visited{
+			color:#b4d4ec
+		}
+		
+		.coolTip .tm-favorite{
+			color:#fdca5c;
+			font-size:13px;
+			text-decoration:none
+		}
+		
+		.coolTip .tm-favorite-clear{
+			color:#bbb;
+			font-size:13px;
+			padding-right:3px;
+			text-decoration:none
+		}
+		
+		.coolTip .tm-favorite-ignore{
+			color:#f00;
+			font-size:13px;
+			text-decoration:none
+		}
+		
+		.coolTip .tm-sub-links a,.coolTip .tm-sub-links a:visited{
+			font-weight:normal;
+			color:#f93;
+			text-decoration:none
+		}
+		
+		.coolTip .tm-sub-links a:hover{
+			color:#faaf65
+		}
+		
+		.coolTip .tm-links{
+			color:#727272;
+		    display:block;
+		    bottom:7px;
+		    position:absolute;
+		}
+		
+		.coolTip .tm-links a,#tag-menu .tm-links a:visited{
+			color:#b4d4ec;
+			font-size:11px;
+			text-decoration:none;
+			margin-right:8px
+		}
+		
+		.coolTip .tm-links a:hover{
+			color:#dcecf7
+		}
+	</style>
+</head>
+<body>
+  
+<div class="sect parent2">Second Tipped Element</div>
+
+<div class="coolTip" id="parent2">
+    <div class="tm-heading">
+        <span class="tm-sub-info">
+            <a class="tm-favorite-clear">&#9733;</a>
+			Second Cool Tip 
+			<span class="tm-sub-links" style="float:right;">
+				<a class="tm-se-subscription" href="#toplink1">toplink1</a>
+				<span style="color:#727272;">|</span>
+				<a href="#toplink2">toplink2</a>
+            </span>
+        </span>
+    </div>
+
+    <div class="tm-description">Some text that consists of a description of the thing you are hovering over. :)</div>
+
+	<div class="tm-links">
+		<a href="#bottomlink1">bottomlink1</a> 
+		<a href="#bottomlink2">bottomlink2</a> 
+		<a href="#bottomlink3">bottomlink3</a>
+	</div>
+</div>
+  
+  
+</body>
+</html>
