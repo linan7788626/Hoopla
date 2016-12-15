@@ -235,18 +235,11 @@
 								lOffset = 0;
 								rOffset ='';
 								tOffset ='';
-								bOffset = 23 + $this.outerHeight() ;
+								bOffset = 22 + $this.outerHeight() ;
 							}
 
-							if ( $elem.offset().top >= 512 &&
-									$elem.offset().left < 128) {
-								lOffset = 13;
-								rOffset ='';
-								tOffset ='';
-								bOffset = -89 ;
-							}
-
-							console.log($elem.offset().top);
+							console.log(bOffset);
+							console.log($this.outerHeight());
 							console.log($elem.offset().left);
 
 							//var lOffset = $elem.offset().left;
@@ -720,7 +713,7 @@
 
 	<div class="container">
 		<button class="button saveModel" id="showModels"
-			style="vertical-align:middle;width:262px;background-color:#666666">
+			style="vertical-align:middle;width:262px;background-color:#666666;position: relative;">
 			<span>Save Lens Models
 			</span>
 		</button>
