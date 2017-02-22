@@ -3,6 +3,7 @@
 
 	<title>Hoopla</title>
 	<link rel="stylesheet" href="./assets/css/tooltips.css" />
+	<link rel="stylesheet" href="./assets/css/fixed-navigation-bar.css" />
 	<script type="text/javascript" src="lib/underscore.js"></script>
 	<script type="text/javascript" src="lib/eelens.js"></script>
 	<script type="text/javascript" src="lib/canvas.js"></script>
@@ -156,20 +157,20 @@
 			}
 			img_src.src = "http://raw.githubusercontent.com/linan7788626/linan7788626.github.io/master/images/black.png";
 
-			document.getElementById('imageUpload').onchange = function(e) {
-				var imageFile = this.files[0];
-				var url = window.URL.createObjectURL(imageFile);
-				img.src = url;
-			//	img_src.src = url;
-			//	document.getElementById("hoopla-srcmodel").style.backgroundImage
+			//document.getElementById('imageUpload').onchange = function(e) {
+			//	var imageFile = this.files[0];
+			//	var url = window.URL.createObjectURL(imageFile);
+			//	img.src = url;
+			////	img_src.src = url;
+			////	document.getElementById("hoopla-srcmodel").style.backgroundImage
+			////		= "url(" + url + ")";
+			////	document.getElementById("hoopla-srcmodel").style.backgroundSize
+			////		= "100% 100%";
+			//	document.getElementById("hoopla-prediction").style.backgroundImage
 			//		= "url(" + url + ")";
-			//	document.getElementById("hoopla-srcmodel").style.backgroundSize
+			//	document.getElementById("hoopla-prediction").style.backgroundSize
 			//		= "100% 100%";
-				document.getElementById("hoopla-prediction").style.backgroundImage
-					= "url(" + url + ")";
-				document.getElementById("hoopla-prediction").style.backgroundSize
-					= "100% 100%";
-			}
+			//}
 
 			document.getElementById("showModels").onclick = function fun() {
 				//lets.showModels(img_src.src.split('/')[img_src.src.split('/').length-1].split('.')[0]+'.JSON');
@@ -190,17 +191,17 @@
 			//		= "100% 100%";
 			//}
 
-			document.getElementById('modelUpload').onchange = function(e) {
-				var input = e.target;
+			//document.getElementById('modelUpload').onchange = function(e) {
+			//	var input = e.target;
 
-				var reader = new FileReader();
-				reader.onload = function(){
-					var text = reader.result;
-					var data = JSON.parse(text);
-					lets.loadModel(data.components);
-				};
-				reader.readAsText(input.files[0]);
-			};
+			//	var reader = new FileReader();
+			//	reader.onload = function(){
+			//		var text = reader.result;
+			//		var data = JSON.parse(text);
+			//		lets.loadModel(data.components);
+			//	};
+			//	reader.readAsText(input.files[0]);
+			//};
 
 			function coolTips() {
 				$('.coolTip').each(function(){
@@ -612,60 +613,81 @@
 	</style>
 
 <body>
+	<nav class="fixed-nav-bar">
+		<div>
+			<h1 style="font-size:36px;margin-top:5px;" class="sitename">Hoopla</h1>
+			<ul class="menu-items">
+				<li><a style="color:#fff;font-size:24px;font-family:Arial;"
+						href="./pages/instruction.html">Instruction</a></li>
+				<li><a style="color:#fff;font-size:24px;font-family:Arial;"
+						href="./pages/information.html">Information</a></li>
+				<li><a style="color:#fff;font-size:24px;font-family:Arial;"
+						href="http://spacewarps.org">SpaceWarps</a></li> 
+				<li><a style="color:#fff;font-size:24px;font-family:Arial;"
+						href="./pages/theteam.html">The Team</a></li>
+			</ul>
+		</div>
+	</nav>
+
 	<div>
 		<header class="inner">
-			<h2>Hoopla
-				<a class="sect about"
-					href="https://github.com/linan7788626/hoopla/">About</a>
-				<a class="sect credits"
-				href="http://drphilmarshall.github.io/LensWrangler/">Credits</a>
-			</h2>
+			<h2>Hoopla</h2>
 		</header>
 	</div>
 
-	<div class="coolTip" id="about">
-	    <div class="tm-heading">
-			About 
-	    </div>
-	
-	    <div class="tm-description" style="font-weight:normal;">
-			<p>Hoopla is an interactive lens modeling tool in Javascript with
-			elliptical lenses and sources. Drag your mouse in the blocks Mass
-			Model and Source Model to draw ellipses, then move the cursor in the
-			Source Plane block. Can you discover anything interesting in the
-			Image Plane block? Can you reconstruct the Einstein Ring using your
-			mouse? If you reconstruct the lensed images successfully, you can
-			use left click on the block Source Plane to activate freeze-model,
-			then click the button Save Lens Models to save your model. If you
-			would like to email the model to me, I really appreciate it. Have
-			Fun!</p>
-			<p>&nbsp;</p>
-		</div>
-	
-		<div class="tm-links" style="font-weight:normal;">
-			<a href="https://github.com/linan7788626/hoopla">Hoopla</a> 
-			<a href="mailto:linan7788626@gmail.com">My E-mail</a>
-		</div>
-	</div>
+		<!--<header class="inner">-->
+			<!--<h2>Hoopla-->
+				<!--<a class="sect about"-->
+					<!--href="https://github.com/linan7788626/hoopla/">About</a>-->
+				<!--<a class="sect credits"-->
+				<!--href="http://drphilmarshall.github.io/LensWrangler/">Credits</a>-->
+			<!--</h2>-->
+		<!--</header>-->
+	<!--</div>-->
 
-	<div class="coolTip" id="credits">
-	    <div class="tm-heading">
-			CREDITS 
-	    </div>
+	<!--<div class="coolTip" id="about">-->
+		<!--<div class="tm-heading">-->
+			<!--About -->
+		<!--</div>-->
 	
-	    <div class="tm-description" style="font-weight:normal;">
-			<p> Hoopla is based on LensWrangler by Phil Marshall, Amit Kapadia, and
-			Stuart Lowe, with modifications by Nan Li. You can click the CREDITS
-			to visit the webpage of LensWrangler. The webpage of Hoopla is
-			published with GitHub Pages.</p>
-			<p>&nbsp;</p>
-		</div>
+		<!--<div class="tm-description" style="font-weight:normal;">-->
+			<!--<p>Hoopla is an interactive lens modeling tool in Javascript with-->
+			<!--elliptical lenses and sources. Drag your mouse in the blocks Mass-->
+			<!--Model and Source Model to draw ellipses, then move the cursor in the-->
+			<!--Source Plane block. Can you discover anything interesting in the-->
+			<!--Image Plane block? Can you reconstruct the Einstein Ring using your-->
+			<!--mouse? If you reconstruct the lensed images successfully, you can-->
+			<!--use left click on the block Source Plane to activate freeze-model,-->
+			<!--then click the button Save Lens Models to save your model. If you-->
+			<!--would like to email the model to me, I really appreciate it. Have-->
+			<!--Fun!</p>-->
+			<!--<p>&nbsp;</p>-->
+		<!--</div>-->
 	
-		<div class="tm-links"  style="font-weight:normal;">
-			<a href="https://github.com/drphilmarshall/LensWrangler">LensWrangler</a> 
-			<a href="https://pages.github.com/">GitHub Pages</a>
-		</div>
-	</div>
+		<!--<div class="tm-links" style="font-weight:normal;">-->
+			<!--<a href="https://github.com/linan7788626/hoopla">Hoopla</a> -->
+			<!--<a href="mailto:linan7788626@gmail.com">My E-mail</a>-->
+		<!--</div>-->
+	<!--</div>-->
+
+	<!--<div class="coolTip" id="credits">-->
+		<!--<div class="tm-heading">-->
+			<!--CREDITS -->
+		<!--</div>-->
+	
+		<!--<div class="tm-description" style="font-weight:normal;">-->
+			<!--<p> Hoopla is based on LensWrangler by Phil Marshall, Amit Kapadia, and-->
+			<!--Stuart Lowe, with modifications by Nan Li. You can click the CREDITS-->
+			<!--to visit the webpage of LensWrangler. The webpage of Hoopla is-->
+			<!--published with GitHub Pages.</p>-->
+			<!--<p>&nbsp;</p>-->
+		<!--</div>-->
+	
+		<!--<div class="tm-links"  style="font-weight:normal;">-->
+			<!--<a href="https://github.com/drphilmarshall/LensWrangler">LensWrangler</a> -->
+			<!--<a href="https://pages.github.com/">GitHub Pages</a>-->
+		<!--</div>-->
+	<!--</div>-->
 
 
 
@@ -713,76 +735,95 @@
 
 	<div class="container">
 		<button class="button saveModel" id="showModels"
-			style="vertical-align:middle;width:262px;background-color:#666666;position: relative;">
-			<span>Save Lens Models
-			</span>
+			style="vertical-align:middle;width:262px;position:relative;">
+			<span>Submit Your Result</span>
 		</button>
 
 		<div class="coolTip" id="saveModel">
-		    <div class="tm-heading">
-				Save Lens Models 
-		    </div>
-		    <div class="tm-description">
+			<div class="tm-heading">
+				Submit Your Result 
+			</div>
+			<div class="tm-description">
 				<p>Save the mass model to a JSON file.</p>
 				<p>&nbsp;</p>
 			</div>
 			<div class="tm-links">
-				<a href="https://raw.githubusercontent.com/linan7788626/Hoopla/master/models/screenshot.JSON">A
-					Mass Model</a> 
+				<a href="https://raw.githubusercontent.com/linan7788626/Hoopla/master/models/screenshot.JSON">A Mass Model</a> 
 				<a href="https://pages.github.com/">GitHub Pages</a>
 			</div>
 		</div>
-
-		<button class="Uploadbtn button readinModels" 
-			style="vertical-align:middle;width:262px;background-color:#666666">
-			<span>Read in Mass Models
-				<input class="input-upload" type="file" id="modelUpload"/>
-			</span>
-		</button>
-
-		<div class="coolTip" id="readinModels">
-		    <div class="tm-heading">
-				Read in Mass Models 
-		    </div>
-		    <div class="tm-description">
-				<p>An example of a mass model is <a
-		   href="https://raw.githubusercontent.com/linan7788626/Hoopla/master/models/screenshot.JSON">here</a>.
-	   Before uploading a new model, please refresh the webpage. After uploading
-	   a new lens model, please move your cursor on the SOURCE PLANE block to
-	   check the new model."</p>
-				<p>&nbsp;</p>
-			</div>
-			<div class="tm-links">
-				<a href="https://raw.githubusercontent.com/linan7788626/Hoopla/master/models/screenshot.JSON">A
-					Mass Model</a> 
-				<a href="https://pages.github.com/">GitHub Pages</a>
-			</div>
-		</div>
-
-		<button class="Uploadbtn button loadinImages" style="vertical-align:middle;width:262px;background-color:#666666">
-			<span>Upload Lensed Images
-				<input class="input-upload" type="file" id="imageUpload"/>
-			</span>
-		</button>
-
-		<div class="coolTip" id="loadinImages">
-		    <div class="tm-heading">
-				Load in New Images 
-		    </div>
-		
-		    <div class="tm-description">
-				<p>Square Images Only. PNG, JPG, and JPEG are preferable. Before
-				uploading new images, please refresh the webpage.</p>
-				<p>&nbsp;</p>
-			</div>
-			<div class="tm-links">
-				<a href="https://raw.githubusercontent.com/linan7788626/Hoopla/master/models/screenshot.JSON">A
-					Mass Model</a> 
-				<a href="https://pages.github.com/">GitHub Pages</a>
-			</div>
-		</div>
-
 	</div>
+
+	<!--<div class="container">-->
+		<!--<button class="button saveModel" id="showModels"-->
+			<!--style="vertical-align:middle;width:262px;position: relative;">-->
+			<!--<span>Submit Your Result</span>-->
+		<!--</button>-->
+
+		<!--<div class="coolTip" id="saveModel">-->
+			<!--<div class="tm-heading">-->
+				<!--Submit Your Result -->
+			<!--</div>-->
+			<!--<div class="tm-description">-->
+				<!--<p>Save the mass model to a JSON file.</p>-->
+				<!--<p>&nbsp;</p>-->
+			<!--</div>-->
+			<!--<div class="tm-links">-->
+				<!--<a href="https://raw.githubusercontent.com/linan7788626/Hoopla/master/models/screenshot.JSON">A-->
+					<!--Mass Model</a> -->
+				<!--<a href="https://pages.github.com/">GitHub Pages</a>-->
+			<!--</div>-->
+		<!--</div>-->
+
+		<!--<button class="Uploadbtn button readinModels" -->
+			<!--style="vertical-align:middle;width:262px;background-color:#666666">-->
+			<!--<span>Read in Mass Models-->
+				<!--<input class="input-upload" type="file" id="modelUpload"/>-->
+			<!--</span>-->
+		<!--</button>-->
+
+		<!--<div class="coolTip" id="readinModels">-->
+			<!--<div class="tm-heading">-->
+				<!--Read in Mass Models -->
+			<!--</div>-->
+			<!--<div class="tm-description">-->
+				<!--<p>An example of a mass model is <a-->
+		   <!--href="https://raw.githubusercontent.com/linan7788626/Hoopla/master/models/screenshot.JSON">here</a>.-->
+	   <!--Before uploading a new model, please refresh the webpage. After uploading-->
+	   <!--a new lens model, please move your cursor on the SOURCE PLANE block to-->
+	   <!--check the new model."</p>-->
+				<!--<p>&nbsp;</p>-->
+			<!--</div>-->
+			<!--<div class="tm-links">-->
+				<!--<a href="https://raw.githubusercontent.com/linan7788626/Hoopla/master/models/screenshot.JSON">A-->
+					<!--Mass Model</a> -->
+				<!--<a href="https://pages.github.com/">GitHub Pages</a>-->
+			<!--</div>-->
+		<!--</div>-->
+
+		<!--<button class="Uploadbtn button loadinImages" style="vertical-align:middle;width:262px;background-color:#666666">-->
+			<!--<span>Upload Lensed Images-->
+				<!--<input class="input-upload" type="file" id="imageUpload"/>-->
+			<!--</span>-->
+		<!--</button>-->
+
+		<!--<div class="coolTip" id="loadinImages">-->
+			<!--<div class="tm-heading">-->
+				<!--Load in New Images -->
+			<!--</div>-->
+		
+			<!--<div class="tm-description">-->
+				<!--<p>Square Images Only. PNG, JPG, and JPEG are preferable. Before-->
+				<!--uploading new images, please refresh the webpage.</p>-->
+				<!--<p>&nbsp;</p>-->
+			<!--</div>-->
+			<!--<div class="tm-links">-->
+				<!--<a href="https://raw.githubusercontent.com/linan7788626/Hoopla/master/models/screenshot.JSON">A-->
+					<!--Mass Model</a> -->
+				<!--<a href="https://pages.github.com/">GitHub Pages</a>-->
+			<!--</div>-->
+		<!--</div>-->
+	<!--</div>-->
 
     <script type="text/javascript" src="lib/marking/marking-surface.js"></script>
     <script type="text/javascript" src="lib/marking/tools/ellipse.js"></script>
