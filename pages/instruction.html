@@ -1,357 +1,19 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 
-	<title>Hoopla</title>
+	<title>Instruction</title>
 	<link rel="stylesheet" href="../assets/css/tooltips.css" />
+	<link rel="stylesheet" href="../assets/css/nanlitxt.css" />
 	<link rel="stylesheet" href="../assets/css/fixed-navigation-bar.css" />
-
-	<style type="text/css">
-		body {
-			font-family: Serif,Helvetica,Arial,sans-serif;
-			background-color: black;
-			color: #ffffff;
-		}
-
-		.container {
-			width: 840px;
-		}
-
-		h1, h2, h3, h4 { font-family: Arial,serif; }
-		h1 { margin-bottom: 0.5em; color: #FFFFFF; }
-
-		h4 { color: #666666; }
-		a { color: #666666; }
-
-		.inline {
-		    position: relative;
-		    display: inline;
-		    margin-left: 5px;
-		}
-
-		.inline-block {
-		    display: inline-block;
-		}
-
-		.captions {
-			font-size:20px;
-			font-weight: bold;
-		    display: block;
-		    height: 40px;
-		}
-
-		#masscaption,#srcincaption {
-			padding-top:100;
-			border: 1px solid #666666;
-			background-color: #666666;
-			width: 380px;
-			color: #ffffff;
-			padding-left: 20px;
-			margin-bottom: 50;
-		}
-
-		#masscaption_c,#srcincaption_c {
-			padding-top:100;
-			border: 1px solid #666666;
-			background-color: #666666;
-			width: 380px;
-			color: #ffffff;
-			padding-left: 20px;
-			margin-bottom: 50;
-		}
-
-		#srccaption, #predcaption {
-			padding-top:100;
-			border: 1px solid #666666;
-			background-color: #666666;
-			width: 380px;
-			color: #ffffff;
-			padding-left: 20px;
-			margin-bottom: 50;
-		}
-
-
-		#srccaption_c, #predcaption_c {
-			padding-top:100;
-			border: 1px solid #666666;
-			background-color: #666666;
-			width: 380px;
-			color: #ffffff;
-			padding-left: 20px;
-			margin-bottom: 50;
-		}
-
-		.barSrc {
-			width: 400px;
-			height: 400px;
-			max-width: 400px; 
-			max-height: 400px;
-			float: left;
-			margin: 5px;
-			margin-bottom: 5px;
-			border: 1px solid #666666;
-			background-size: 400px 400px;
-			background:url("http://raw.githubusercontent.com/linan7788626/linan7788626.github.io/master/images/black.png") no-repeat;
-			background-size:contain;
-		}
-
-		.bar {
-			width: 400px;
-			height: 400px;
-			max-width: 400px; 
-			max-height: 400px;
-			float: left;
-			margin: 5px;
-			margin-bottom: 5px;
-			border: 1px solid #666666;
-			/*background-image: url("http://raw.githubusercontent.com/linan7788626/linan7788626.github.io/master/images/ering.jpg");
-			background-size: 400px 400px;*/
-			background:url("http://raw.githubusercontent.com/linan7788626/linan7788626.github.io/master/images/ering.jpg") no-repeat;
-			background-size:contain;
-		}
-		.barTitle {
-			font-family: Arial,serif;
-			padding-bottom:20px;
-			font-size:22px;
-			font-weight: bold;
-			width: 400px;
-			height: 20px;
-			float: left;
-			margin: 5px;
-			margin-bottom: -5px;
-			border: 1px solid #666666;
-			background-color:#666666;
-		}
-
-		.greywords {
-			color: #666666;
-		}
-
-		#footer {
-			position:absolute;
-			color: #666666;
-			bottom:0;
-			margin-bottom:40px;
-			width:100%;
-			height:100px;   /* Height of the footer */
-		}
-
-		.button {
-			display: inline-block;
-			border-radius: 2px;
-			background-color: #0f79ac;
-			border: none;
-			color: #FFFFFF;
-			text-align: center;
-			font-size: 18px;
-			padding: 10px;
-			width: 200px;
-			transition: all 0.5s;
-			cursor: pointer;
-			margin: 5px;
-		}
-
-		.button span {
-			cursor: pointer;
-			display: inline-block;
-			position: relative;
-			transition: 0.5s;
-		}
-
-		.button span:after {
-			content: '»';
-			position: absolute;
-			opacity: 0;
-			top: 0;
-			right: -20px;
-			transition: 0.5s;
-		}
-
-		.button:hover span {
-			padding-right: 25px;
-		}
-
-		.button:hover span:after {
-			opacity: 1;
-			right: 0;
-		}
-
-		#homebutton {
-			position: absolute;
-			left: 1035px;
-			top: 30px;
-		}
-
-		.Uploadbtn {
-			position: relative;
-			/*overflow: hidden;*/
-			display: inline-block;
-			border-radius: 2px;
-			background-color: #0f79ac;
-			border: none;
-			color: #FFFFFF;
-			text-align: center;
-			font-size: 18px;
-			padding: 10px;
-			width: 200px;
-			transition: all 0.5s;
-			cursor: pointer;
-			margin: 5px;
-		}
-
-		.Uploadbtn .input-upload {
-			position: absolute;
-			top: 0;
-			right: 0;
-			margin: 0;
-			padding: 0;
-			opacity: 0;
-			height:100%;
-			width:100%;
-			cursor: pointer;
-		}
-
-		#textbox1 {
-			border: 0px #666666;
-			border-radius: 2px;
-			font-size: 18px;
-			margin: 5px;
-			margin-bottom: 0px;
-			padding: 10px;
-			width: 620px;
-			height: 20px;
-		}
-
-		.wrapper {
-			margin: 5px;
-			background-color: #666666;
-			border:0px solid #666666;
-			border-radius: 2px;
-			display:inline-block;
-		}
-
-		.sect {
-		  /*cursor:pointer;
-		  display:inline-block;
-		  margin:20px 0;
-		  border:#999 solid 1px;
-		  padding:3px 5px;
-		  background:#C4DAE9;
-		  color:#3E6D8E;*/
-		}
-		
-		.tooltipWrapper {
-			overflow:hidden;
-			z-index:1002;
-			display:none;
-			position:absolute;
-		}
-		
-		.coolTip {
-		    width:242px;
-		    /*height:122px;*/
-		    top:0;
-		    left:0;
-		    cursor:auto;
-		    display:none;
-			-moz-border-radius:2px;
-			border-radius:2px;
-			border:0px solid #1c1c1c;
-			/*border-top:1px solid #444;*/
-			background-color:hsla(0, 0%, 20%, 0.9);
-			color:#e3e3e3;
-			text-align:left;
-			padding:10px;
-			/*-moz-box-shadow:0 2px 4px rgba(0,0,0,0.5),inset 0 1px 0 #727272;
-			-webkit-box-shadow:0 2px 4px rgba(0,0,0,0.5),inset 0 1px 0 #727272;
-			box-shadow:0 2px 4px rgba(0,0,0,0.5),inset 0 1px 0 #727272;*/
-			/*font-family:'Times New Roman','Helvetica
-			  Neue',Helvetica,Arial,sans-serif;*/
-			z-index:320;
-			position:relative;
-			font-size:16px;
-		}
-		
-		.coolTip .tm-heading{
-			color:#fff;
-			font-weight:bold;
-			border-bottom:1px solid #727272;
-			padding-bottom:8px;
-			margin-bottom:8px
-			font-family:Arial;
-		}
-		
-		.coolTip .tm-description{
-			line-height:17px;
-			font-size:16px;
-			margin-bottom:8px;
-			word-wrap:break-word
-			font-weight:normal;
-		}
-		
-		.coolTip .tm-description p{
-			margin-bottom:8px
-		}
-		
-		.coolTip .tm-description a,.coolTip .tm-description a:visited{
-			color:#b4d4ec
-		}
-		
-		.coolTip .tm-favorite{
-			color:#fdca5c;
-			font-size:16px;
-			text-decoration:none
-		}
-		
-		.coolTip .tm-favorite-clear{
-			color:#bbb;
-			font-size:16px;
-			padding-right:3px;
-			text-decoration:none
-		}
-		
-		.coolTip .tm-favorite-ignore{
-			color:#f00;
-			font-size:16px;
-			text-decoration:none
-		}
-		
-		.coolTip .tm-sub-links a,.coolTip .tm-sub-links a:visited{
-			font-weight:normal;
-			color:#f93;
-			text-decoration:none
-		}
-		
-		.coolTip .tm-sub-links a:hover{
-			color:#faaf65
-		}
-		
-		.coolTip .tm-links{
-			color:#727272;
-		    display:block;
-		    bottom:7px;
-		    position:absolute;
-		}
-		
-		.coolTip .tm-links a,#tag-menu .tm-links a:visited{
-			color:#b4d4ec;
-			font-size:16px;
-			text-decoration:none;
-			margin-right:8px
-		}
-		
-		.coolTip .tm-links a:hover{
-			color:#dcecf7
-		}
-	</style>
 
 <body>
 	<nav class="fixed-nav-bar">
 		<div>
 			<ul class="menu-items">
 				<li><a href="../index.html">Hoopla</a></li>
+				<li><a href="../pages/introduction.html">Introduction</a></li>
 				<li><a class="active" href="../pages/instruction.html">Instruction</a></li>
-				<li><a href="../pages/information.html">Information</a></li>
-				<li><a href="../pages/crowdsourcing.html">CrowdSourcing</a></li> 
+				<li><a href="../pages/citizenscience.html">Citizen Science</a></li> 
 				<li><a href="../pages/theteam.html">The Team</a></li>
 			</ul>
 		</div>
@@ -361,8 +23,63 @@
 		<header>
 			<h2>Instruction</h2>
 		</header>
-		<h2>Instruction</h2>
-		<p>More coming soon...</p>
+		<h1>What is Hoopla?</h1>
+		<p>Hoopla is a simple javascript app for modeling images of strong
+		gravitational lenses. It allows you to hand-craft a model lens out of
+		elliptically-symmetric mass distributions (representing massive
+		foreground galaxies) and elliptically symmetric light sources
+		(representing faint background galaxies), and then dynamically predict
+		the shape of the resulting gravitationally lensed image features as you
+		tune the model. You can save your tuned model's parameters to a
+		shareable JSON file by just clicking the button below the main window
+		of Hoopla.</p>
+		<h1>An Example</h1>
+		<img src="../pics/example.png" alt="example" style="max-width: 80%;">
+		<p>In principle, when studying the effects of gravitational lensing, we
+		have specific names for the different objects under observation. We
+		call the light-emitting object the source and the massive object the
+		lens. What we see through our telescopes is called an the image plane.
+		In this image plane, light from a distant galaxy (source) is being bent
+		around a supermassive object (lens). The alignment of the source in
+		relation to the lens produces this ring like images. In Hoopla, one can
+		set up the source and lens by dragging your mouse in the blocks "Mass
+		Model" and "Source Model" to draw ellipses, then move the cursor in the
+		"Source Plane" block. You may see blue "circles" appearing in the
+		"Image Plane" block. The goal of the game is: find the best models to
+		make blue circles on top the lensed images in the "Images Plane" block.
+		Once you are satisfied with the similarity between blue "circles" and
+		the lensed images, you can use left click on the block "Source Plane"
+		to activate freeze-model, then click the button "Submit your result" to
+		submit your models.</p>
+		<p>Briefly states, there are several steps for your to accomplish your model:</p>
+		<ol>
+			<li class="li-in-p">Randomly draw an ellipse in the "Mass Model" block first.</li>
+			<li class="li-in-p">Randomly draw an ellipse in the "Source Model" block.</li>
+			<li class="li-in-p">Move the mouse in the source "Source Plane" block.</li>
+			<li class="li-in-p">Then some blue "circles" can be created in the "Images Plane" block.</li>
+		</ol>
+		<p>You could obtain some lensed images now, but if no matter how you
+		move the mouse, the similarity between the blue circles and lensed
+		images does not satisfy you, you may drag the handles (large white
+		points) on the ellipses to change the ellipticity, size, and
+		orientation of the source and lens, and drag the center of the ellipse
+		to relocate the lens and the source, then move the mouse again in the
+		"Source Plane" block to reproduce blue circles. Should you want to
+		restart, please just refresh the webpage. Repeating the steps above, I
+		believe you could obtain a reasonable model of gravitation lensing of
+		this image. If you obtain such a model, please do not forget to freeze
+		it (right click) and submit it (the button below the Hoopla
+		windows).</p>
+		<p>The figure above shows one example of the model I created. Once can
+		see the lens model and source model in the upper blocks, the relative
+		position of the source is shown in the lower left block, and the lensed
+		images are presented in the lower right block. To me, the similarity
+		between the blue circles and lensed images is acceptable. If you could
+		produce images like this, then congratulations, you are a gravitational
+		lensing modeler now. (^_^)</p>
+
+
+
 	</div>
 
 	<div class="container">
